@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SW사관학교 정글 | 간단 메모장</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 구글폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
+      rel="stylesheet"
+    />
+    <!-- style -->
+    <style type="text/css">
+      * {
+        font-family: "Stylish", sans-serif;
+      }
+
+      .wrap {
+        width: 900px;
+        margin: auto;
+      }
+
+      .comment {
+        color: blue;
+        font-weight: bold;
+      }
+      .form-class {
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      .form-class > input,
+      .form-class > textarea {
+        max-width: 350px;
+        max-height: 100px;
+        margin-bottom: 1rem;
+      }
+      .form-class > button {
+        max-width: 350px;
+      }
+      .update-div {
+        display: none;
+      }
+      .default-div {
+        display: block;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $("#card-list").html("");
+        showCard();
+      });
+      //memo 추가 함수
+      function addMemo(e) {
+        const title = $("#memo-title").val();
+        const content = $("#memo-content").val();
+        if (title.trim() === "" || content.trim() === "") {
+          e.preventDefault();
+          alert("제목과 내용을 입력해주세요");
+          return;
+        }
+
+        $.ajax({
+          type: "POST",
+          url: "/memo",
+          data: { title, content },
+          success: (res) => {
+            alert("저장완료!");
+          },
+        });
+      }
+      //메모 랜더 함수
+      function showCard() {
+        $.ajax({
+          type: "GET",
+          url: "/memo",
+          data: {},
+          success: function (response) {
+            
+            if (response["result"] == "success") {
+              let memos = JSON.parse(response["memos"]);
+              console.log(typeof memos)
+              memos.map((el) => {
+                makeCard(el["_id"].$oid, el.title, el.content);
+              });
+            }
+          },
+        });
+      }
+      //메모 카드 템플릿
+      function makeCard(oid, title, content) {
+        const temp_html = `<div class="card card-body">
+          <div id='${oid}'  class="default-div">
+            <input type="hidden" name="" id='${oid}'>
+            <h3 class="card-title">${title}</h3>
+            <p class="card-text">${content}</p>
+            <button id ='update-btn' onclick='toggleButton(event)' class="btn btn-info">수정</button>
+            <button onclick ='deleteCard(this.value)' value='${oid}' class="btn btn-danger">삭제</button>
+          </div>
+          <div id='${oid}'  class="update-div">
+            <input value ="${title}" id='title-${oid}' class="new-title form-control mb-2" type="text" />
+            <textarea id='text-${oid}' class="new-text form-control mb-2" type="text">${content}</textarea>
+            <button onclick= 'updateCard(this.value, event)' value='${oid}' class="btn btn-success">저장</button>
+          </div>
+        </div>`;
+        $("#card-list").append(temp_html);
+      }
+      //메모 삭제
+      function deleteCard(id) {
+        $.ajax({
+          url: "/card",
+          type: "DELETE",
+          data: { id },
+          success: (res) => {
+            if (res["result"] === "success") {
+              alert("삭제완료!");
+              location.reload();
+            }
+          },
+        });
+      }
+      //메모 내용 수정
+      function updateCard(id) {
+        const title = $(`#title-${id}`).val();
+        const text = $(`#text-${id}`).val();
+        if (title.trim() === "" || text.trim() === "") {
+          alert("수정할 제목과 내용을 입력해주세요");
+          return;
+        }
+        $.ajax({
+          url: "/card",
+          type: "POST",
+          data: { title, text, id },
+          success: (res) => {
+            if (res["result"] === "success") {
+              alert("수정완료!");
+              location.reload();
+            }
+          },
+        });
+      }
+      //수정 버튼 이벤트
+      function toggleButton(e) {
+        let div = e.target.parentNode;
+
+        if ($(`#${div.id}`).css("display") === "block") {
+          $(`#${div.id}`).hide();
+          $(`#${div.id}`).next("div").show();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="jumbotron">
+        <h2 class="font-weight-bold">
+          나홀로 메모장! <span class="badge badge-secondary"> ver2.0 </span>
+        </h2>
+
+        <form id="memo-form" class="form-class">
+          <input
+            class="form-control"
+            id="memo-title"
+            type="text"
+            placeholder="메모 제목을 입력하세요"
+          />
+          <textarea
+            class="form-control"
+            id="memo-content"
+            cols="10"
+            rows="10"
+            placeholder="내용을 입력하세요"
+          ></textarea>
+          <button
+            id="save-btn"
+            class="btn btn-primary"
+            form="memo-form"
+            type="submit"
+            onclick="addMemo(event)"
+          >
+            저장하기
+          </button>
+        </form>
+      </div>
+      <div id="card-list" class="card-columns">
+    </div>
+  </body>
+</html>
