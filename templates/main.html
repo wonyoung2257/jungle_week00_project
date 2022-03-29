@@ -78,87 +78,183 @@
       .input_wrapper {
         margin-bottom: 10px;
       }
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */
+      }
     </style>
-      <script>
-        function success(id){
-            $.ajax({
-                type: "POST",
-        url: "/success",
-        data: { 'id':id },
-        success: function (response) {
-            if (response['result'] == 'success') {
-                alert('정답입니다')
-                window.location.reload()
+    <script>
+      function success(id) {
+        $.ajax({
+          type: "POST",
+          url: "/success",
+          data: { id: id },
+          success: function (response) {
+            if (response["result"] == "success") {
+              $("#myModal_success").show();
             }
-        }
-            })
-        }
+          },
+        });
+      }
 
-        function fail(id){
-            $.ajax({
-                type: "POST",
-        url: "/fail",
-        data: { 'id':id },
-        success: function (response) {
-            if (response['result'] == 'success') {
-                alert('실패입니다')
-                window.location.reload()
+      function fail(id) {
+        $.ajax({
+          type: "POST",
+          url: "/fail",
+          data: { id: id },
+          success: function (response) {
+            if (response["result"] == "success") {
+              $("#myModal_fail").show();
             }
-        }
-            })
-        }
-
-      </script>
+          },
+        });
+      }
+    </script>
   </head>
   <body>
     <div class="wrapper">
       <header class="header">정글 워들</header>
       <div class="main_wrapper">
         <div class="ranking" id="ranking">
-          <h2>랭킹 시스템<h2>
-                {% for rank in ranking %}
-                    <li>{{ rank.id }}  {{ rank.cnt_success }} {{ rank.cnt_fail }} </li>
-                {% endfor %}
-            <a href="#" onclick="success('박준규')" class="card-footer-item has-text-danger">
-                        성공
-                        <span class="icon">
+          랭킹 시스템 {% for rank in ranking %}
+          <li>{{ rank.id }} {{ rank.cnt_success }} {{ rank.cnt_fail }}</li>
+          {% endfor %}
+          <a
+            href="#"
+            onclick="success('박준규')"
+            class="card-footer-item has-text-danger"
+          >
+            성공
+            <span class="icon">
               <i class="fas fa-ban"></i>
             </span>
-                    </a>
-            <a href="#" onclick="fail('박준규')" class="card-footer-item has-text-danger">
-                        실패
-                        <span class="icon">
+          </a>
+          <a
+            href="#"
+            onclick="fail('박준규')"
+            class="card-footer-item has-text-danger"
+          >
+            실패
+            <span class="icon">
               <i class="fas fa-ban"></i>
             </span>
-                    </a>
+          </a>
+
+          <!-- The Modal -->
+          <div id="myModal_success" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <p style="text-align: center">
+                <span style="font-size: 14pt"
+                  ><b><span style="font-size: 24pt">성공입니다.</span></b></span
+                >
+              </p>
+              <p style="text-align: center; line-height: 1.5">
+                <br />{{ answers }}
+              </p>
+              <p><br /></p>
+              <div
+                style="
+                  cursor: pointer;
+                  background-color: #dddddd;
+                  text-align: center;
+                  padding-bottom: 10px;
+                  padding-top: 10px;
+                "
+                onClick="close_pop();"
+              >
+                <span
+                  class="pop_bt"
+                  style="font-size: 13pt"
+                  onclick="window.location.reload()"
+                >
+                  닫기
+                </span>
+              </div>
+            </div>
+          </div>
+          <!--End Modal-->
+
+          <!-- The Modal -->
+          <div id="myModal_fail" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <p style="text-align: center">
+                <span style="font-size: 14pt"
+                  ><b><span style="font-size: 24pt">실패입니다.</span></b></span
+                >
+              </p>
+              <p style="text-align: center; line-height: 1.5">
+                <br />{{ answers }}
+              </p>
+              <p><br /></p>
+              <div
+                style="
+                  cursor: pointer;
+                  background-color: #dddddd;
+                  text-align: center;
+                  padding-bottom: 10px;
+                  padding-top: 10px;
+                "
+                onClick="close_pop();"
+              >
+                <span
+                  class="pop_bt"
+                  style="font-size: 13pt"
+                  onclick="window.location.reload()"
+                >
+                  닫기
+                </span>
+              </div>
+            </div>
+          </div>
+          <!--End Modal-->
         </div>
+
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
-          <div class="game_input_container">
-            
-          </div>
+          <div class="game_input_container"></div>
         </div>
         <script>
-          let data = JSON.parse('{{ answers|safe }}')          
+          let data = JSON.parse(`{{ answers | safe }}`);
           let answer = data.answer;
-          console.log(answer)
+          console.log(answer);
           // let user_answer = []
-          let answer_count = 0
+          let answer_count = 0;
           //정답 값에 따라 박스 생성 함수
-          const show_game_input = (answer) =>{
-            let $game_input_container = document.querySelector('.game_input_container')
-            for(let i = 0; i < 6; i++){
-              let input_id = `input_wrap_${i}`
-              let template = `<div id="${input_id}" class="input_wrapper">`
-              $game_input_container.innerHTML += template
-              let $input_id = document.querySelector(`#${input_id}`)
-              for (let j = 0; j< answer.length; j++){
-                $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" />`
+          const show_game_input = (answer) => {
+            let $game_input_container = document.querySelector(
+              ".game_input_container"
+            );
+            for (let i = 0; i < 6; i++) {
+              let input_id = `input_wrap_${i}`;
+              let template = `<div id="${input_id}" class="input_wrapper">`;
+              $game_input_container.innerHTML += template;
+              let $input_id = document.querySelector(`#${input_id}`);
+              for (let j = 0; j < answer.length; j++) {
+                $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" />`;
               }
             }
-          }
+          };
 
-          show_game_input(answer)
+          show_game_input(answer);
 
           let game_inputs = document.querySelector(".game_input_container");
 
@@ -213,24 +309,23 @@
               user_input[i].style.color = "white";
             });
 
-            if(green.length == answer.length){
-              alert('정답입니다.')
-              return
+            if (green.length == answer.length) {
+              alert("정답입니다.");
+              return;
             }
-            
-            if(answer_count == 6){
-              alert('실패입니다.')
-              return
-            }            
+
+            if (answer_count == 6) {
+              alert("실패입니다.");
+              return;
+            }
           };
 
           //game_inputs에 이벤트 위함 엔터키 이벤트 발생
           game_inputs.addEventListener("keypress", (e) => {
-            
-            if(e.key == 'Enter'){
-              check_answer(e.target.parentNode.id)
-              answer_count += 1
-            } ;            
+            if (e.key == "Enter") {
+              check_answer(e.target.parentNode.id);
+              answer_count += 1;
+            }
           });
         </script>
       </div>
