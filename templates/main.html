@@ -96,45 +96,59 @@
             <input type="text" class="game_input" maxlength="1" />
             <input type="text" class="game_input" maxlength="1" />
           </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
+          <p class="input_wrapper input_wrapper1">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
           </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
+          <p class="input_wrapper input_wrapper2">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
           </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
+          <p class="input_wrapper input_wrapper3">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
           </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
+          <p class="input_wrapper input_wrapper4">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+          </p>
+          <p class="input_wrapper input_wrapper5">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+          </p>
+          <p class="input_wrapper input_wrapper">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
           </p>
         </div>
         <script>
@@ -146,30 +160,280 @@
             );
           };
           let answer = "ㅇㅜㅓㄴㅇㅕㅇ";
-
+          let green = [];
+          let yellow = [];
+          let gray = [];
           document
             .querySelector(".input_wrapper0")
             .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
               if (e.key == "Enter") {
                 let user_input = document.querySelectorAll(".game_input");
-                let temp_answer = answer.split("");
                 // 게임 로직
                 for (let i = 0; i < answer.length; i++) {
-                  if (user_input[i].value === temp_answer[i]) {
+                  if (user_input[i].value === answer[i]) {
                     temp_answer[i] = "";
-                    user_input[i].style.backgroundColor = "#22C55E";
-                    user_input[i].style.color = "white";
-                  } else if (temp_answer.includes(user_input[i].value)) {
-                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
-                    user_input[i].style.backgroundColor = "#EAB308";
-                    user_input[i].style.color = "white";
-                  } else {
-                    user_input[i].style.backgroundColor = "#94A3B8";
-                    user_input[i].style.color = "white";
+                    green.push(i);
                   }
-                  user_input[i].readOnly = true;
-                  console.log(temp_answer);
                 }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper1")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper2")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper3")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper4")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper5")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
+              }
+            });
+          document
+            .querySelector(".input_wrapper6")
+            .addEventListener("keypress", (e) => {
+              let temp_answer = answer.split("");
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === answer[i]) {
+                    temp_answer[i] = "";
+                    green.push(i);
+                  }
+                }
+                for (let i = 0; i < answer.length; i++) {
+                  if (
+                    temp_answer.includes(user_input[i].value) &&
+                    !green.includes(i)
+                  ) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    yellow.push(i);
+                  } else if (!green.includes(i) && !yellow.includes(i)) {
+                    gray.push(i);
+                  }
+                }
+
+                green.map((i) => {
+                  user_input[i].style.backgroundColor = "#22C55E";
+                  user_input[i].style.color = "white";
+                });
+                yellow.map((i) => {
+                  user_input[i].style.backgroundColor = "#EAB308";
+                  user_input[i].style.color = "white";
+                });
+                gray.map((i) => {
+                  user_input[i].style.backgroundColor = "#94A3B8";
+                  user_input[i].style.color = "white";
+                });
               }
             });
         </script>

@@ -36,7 +36,6 @@ def rank_list():
       'cntSuccess': data['cnt_success'],
       'failSuccess': data['cnt_fail']
     })
-
   return jsonify({'result': 'success', 'rank_list': rank_list})
 
 if __name__ == '__main__':
