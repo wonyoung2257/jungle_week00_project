@@ -78,6 +78,36 @@
         margin-bottom: 10px;
       }
     </style>
+      <script>
+        function success(id){
+            $.ajax({
+                type: "POST",
+        url: "/success",
+        data: { 'id':id },
+        success: function (response) {
+            if (response['result'] == 'success') {
+                alert('정답입니다')
+                window.location.reload()
+            }
+        }
+            })
+        }
+
+        function fail(id){
+            $.ajax({
+                type: "POST",
+        url: "/fail",
+        data: { 'id':id },
+        success: function (response) {
+            if (response['result'] == 'success') {
+                alert('실패입니다')
+                window.location.reload()
+            }
+        }
+            })
+        }
+
+      </script>
   </head>
   <body>
   <div class="wrapper">
@@ -88,7 +118,18 @@
                 {% for rank in ranking %}
                     <li>{{ rank.id }}  {{ rank.cnt_success }} {{ rank.cnt_fail }} </li>
                 {% endfor %}
-                        {{ answers }}
+            <a href="#" onclick="success('박준규')" class="card-footer-item has-text-danger">
+                        성공
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
+            <a href="#" onclick="fail('박준규')" class="card-footer-item has-text-danger">
+                        실패
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
         </div>
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
