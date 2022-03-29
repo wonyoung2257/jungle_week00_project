@@ -80,11 +80,16 @@
     </style>
   </head>
   <body>
-    <div class="wrapper">
+  <div class="wrapper">
       <header class="header">정글 워들</header>
       <div class="main_wrapper">
-        <div class="ranking">랭킹 시스템</div>
-
+        <div class="ranking" id="ranking">
+            <h2>랭킹 시스템<h2>
+                {% for rank in ranking %}
+                    <li>{{ rank.id }}  {{ rank.cnt_success }} {{ rank.cnt_fail }} </li>
+                {% endfor %}
+                        {{ answers }}
+        </div>
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
           <div class="game_input_wapper">
