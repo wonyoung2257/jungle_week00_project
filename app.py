@@ -21,10 +21,10 @@ import random
 #   'cnt_fail': '5'
 # }
 # db.users.insert_one(data)
-userList = list(db.users.find({}))
 
 @app.route('/')
 def home():
+  userList = list(db.users.find({}))
   rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
   rank_list = []
   for data in rank:
