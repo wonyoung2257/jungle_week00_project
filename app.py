@@ -2,10 +2,12 @@
 from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
+# from bson.json_util import dumps
 import json
 from pymongo import MongoClient
 # client = MongoClient('localhost', 27017)
-client = MongoClient('mongodb+srv://test:test@cluster0.b9rhp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+import certifi
+client = MongoClient('mongodb+srv://test:test@cluster0.b9rhp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', tlsCAFile=certifi.where())
 db = client.junglewordle
 import random
 # data = {
@@ -39,7 +41,6 @@ def home():
     'img': answers_list[random_num]['img']
   }
   
-
   return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
 
 @app.route('/success', methods=['POST'])
@@ -58,5 +59,32 @@ def add_count_fail():
 
   return jsonify({'result': 'success'})
 
+@app.route('/makeid', methods=['POST'])
+def post_memo():
+    id_receive =request.form['id_give']  
+    pw_receive = request.form['pw_give']  
+    pw_receive2 = request.form['pw_give2'] 
+    user = {'id': id_receive, 'pw': pw_receive, 'cnt_success':0, 'cnt_fail':0}
+    list = db.memos.find({}, {'_id': 0})
+    
+    for i in list :
+
+        if id_receive == i['id']:
+            return jsonify({'result': 'same'})
+
+        elif id_receive == "":
+            return jsonify({'result': 'false'})
+
+        elif pw_receive == "":
+            return jsonify({'result': 'false2'})
+        
+        elif pw_receive == pw_receive2:
+            db.memos.insert_one(user)
+            return jsonify({'result': 'success'})
+
+        else:
+            return jsonify({'result': 'false3'})
+
+
 if __name__ == '__main__':
-  app.run('0.0.0.0', port=5001, debug =True)
+  app.run('0.0.0.0', port=9432, debug =True)
