@@ -42,19 +42,26 @@ def home():
     'img': answers_list[random_num]['img']
   }
   
+
   return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
 
-@app.route('/rank', methods=['GET'])
-def rank_list():
-  rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
-  rank_list = []
-  for data in rank:
-    rank_list.append({
-      'id': data['id'],
-      'cnt_success': data['cnt_success'],
-      'cnt_fail': data['cnt_fail']
-    })
-  return jsonify({'result': 'success', 'rank_list': rank_list})
+@app.route('/success', methods=['POST'])
+def add_count_success():
+  id = request.form['id']
+  new_cnt_success = int(db.users.find_one({'id': id})['cnt_success']) + 1
+  new_cnt_fail = int(db.users.find_one({'id': id})['cnt_fail']) - 1
+  db.users.update_one({'id': id}, {'$set': {'cnt_success': new_cnt_success}})
+  db.users.update_one({'id': id}, {'$set': {'cnt_fail': new_cnt_fail}})
+
+  return jsonify({'result': 'success'})
+
+@app.route('/fail', methods=['POST'])
+def add_count_fail():
+  id = request.form['id']
+  new_cnt_fail = int(db.users.find_one({'id': id})['cnt_fail']) + 1
+  db.users.update_one({'id': id}, {'$set': {'cnt_fail': new_cnt_fail}})
+
+  return jsonify({'result': 'success'})
 
 if __name__ == '__main__':
   app.run('0.0.0.0', port=5000, debug =True)

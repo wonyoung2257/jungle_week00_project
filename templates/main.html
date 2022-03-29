@@ -70,15 +70,45 @@
         height: 50px;
         font-size: 25px;
         font-weight: 600;
+        margin-left: 10px;
         border: 2px solid rgba(59, 130, 246, 0.5);
         border-radius: 5px;
         text-align: center;
       }
       .input_wrapper {
         margin-bottom: 10px;
-        background-color: brown;
       }
     </style>
+      <script>
+        function success(id){
+            $.ajax({
+                type: "POST",
+        url: "/success",
+        data: { 'id':id },
+        success: function (response) {
+            if (response['result'] == 'success') {
+                alert('정답입니다')
+                window.location.reload()
+            }
+        }
+            })
+        }
+
+        function fail(id){
+            $.ajax({
+                type: "POST",
+        url: "/fail",
+        data: { 'id':id },
+        success: function (response) {
+            if (response['result'] == 'success') {
+                alert('실패입니다')
+                window.location.reload()
+            }
+        }
+            })
+        }
+
+      </script>
   </head>
   <body>
     <div class="wrapper">
@@ -89,26 +119,32 @@
                 {% for rank in ranking %}
                     <li>{{ rank.id }}  {{ rank.cnt_success }} {{ rank.cnt_fail }} </li>
                 {% endfor %}
-                
+            <a href="#" onclick="success('박준규')" class="card-footer-item has-text-danger">
+                        성공
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
+            <a href="#" onclick="fail('박준규')" class="card-footer-item has-text-danger">
+                        실패
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
         </div>
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
           <div class="game_input_container">
-            <div id="input_wrapper0" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </div>
+            
           </div>
         </div>
         <script>
           let data = JSON.parse('{{ answers|safe }}')          
           let answer = data.answer;
-
+          console.log(answer)
+          // let user_answer = []
+          let answer_count = 0
+          //정답 값에 따라 박스 생성 함수
           const show_game_input = (answer) =>{
             let $game_input_container = document.querySelector('.game_input_container')
             for(let i = 0; i < 6; i++){
@@ -125,6 +161,8 @@
           show_game_input(answer)
 
           let game_inputs = document.querySelector(".game_input_container");
+
+          //input의 정답값이 맞는지 확인하는 함수
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
@@ -174,10 +212,25 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
+
+            if(green.length == answer.length){
+              alert('정답입니다.')
+              return
+            }
+            
+            if(answer_count == 6){
+              alert('실패입니다.')
+              return
+            }            
           };
 
+          //game_inputs에 이벤트 위함 엔터키 이벤트 발생
           game_inputs.addEventListener("keypress", (e) => {
-            if(e.key == 'Enter') check_answer(e.target.parentNode.id);
+            
+            if(e.key == 'Enter'){
+              check_answer(e.target.parentNode.id)
+              answer_count += 1
+            } ;            
           });
         </script>
       </div>
