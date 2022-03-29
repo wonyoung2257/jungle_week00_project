@@ -178,7 +178,6 @@
                   padding-bottom: 10px;
                   padding-top: 10px;
                 "
-                onClick="close_pop();"
               >
                 <span
                   class="pop_bt"
@@ -213,7 +212,6 @@
                   padding-bottom: 10px;
                   padding-top: 10px;
                 "
-                onClick="close_pop();"
               >
                 <span
                   class="pop_bt"
@@ -310,12 +308,12 @@
             });
 
             if (green.length == answer.length) {
-              alert("정답입니다.");
+              success("허원영");
               return;
             }
 
             if (answer_count == 6) {
-              alert("실패입니다.");
+              fail("허원영");
               return;
             }
           };
