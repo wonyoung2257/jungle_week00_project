@@ -76,24 +76,25 @@
       }
       .input_wrapper {
         margin-bottom: 10px;
+        background-color: brown;
       }
     </style>
   </head>
   <body>
-  <div class="wrapper">
+    <div class="wrapper">
       <header class="header">정글 워들</header>
       <div class="main_wrapper">
         <div class="ranking" id="ranking">
-            <h2>랭킹 시스템<h2>
+          <h2>랭킹 시스템<h2>
                 {% for rank in ranking %}
                     <li>{{ rank.id }}  {{ rank.cnt_success }} {{ rank.cnt_fail }} </li>
                 {% endfor %}
-                        {{ answers }}
+                
         </div>
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
-          <div class="game_input_wapper">
-            <p id="input_wrapper0" class="input_wrapper">
+          <div class="game_input_container">
+            <div id="input_wrapper0" class="input_wrapper">
               <input type="text" class="game_input" maxlength="1" />
               <input type="text" class="game_input" maxlength="1" />
               <input type="text" class="game_input" maxlength="1" />
@@ -101,62 +102,40 @@
               <input type="text" class="game_input" maxlength="1" />
               <input type="text" class="game_input" maxlength="1" />
               <input type="text" class="game_input" maxlength="1" />
-            </p>
-            <p id="input_wrapper1" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </p>
-            <p id="input_wrapper2" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </p>
-            <p id="input_wrapper3" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </p>
-            <p id="input_wrapper4" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </p>
-            <p id="input_wrapper5" class="input_wrapper">
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-              <input type="text" class="game_input" maxlength="1" />
-            </p>
+            </div>
           </div>
         </div>
         <script>
-          let answer = "ㅇㅜㅓㄴㅇㅕㅇ";
-          let game_inputs = document.querySelector(".game_input_wapper");
+          let data = JSON.parse('{{ answers|safe }}')          
+          let answer = data.answer;
+
+          const show_game_input = (answer) =>{
+            let $game_input_container = document.querySelector('.game_input_container')
+            for(let i = 0; i < 6; i++){
+              let input_id = `input_wrap_${i}`
+              let template = `<div id="${input_id}" class="input_wrapper">`
+              $game_input_container.innerHTML += template
+              let $input_id = document.querySelector(`#${input_id}`)
+              for (let j = 0; j< answer.length; j++){
+                $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" />`
+              }
+            }
+          }
+
+          show_game_input(answer)
+
+          let game_inputs = document.querySelector(".game_input_container");
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
 
             // input 값 유효성 검사하기
+            for (let i = 0; i < user_input.length; i++) {
+              if (user_input[i].value.trim() === "") {
+                alert("빈칸을 채워주세요");
+                return;
+              }
+            }
 
             let green = [];
             let yellow = [];
@@ -198,7 +177,7 @@
           };
 
           game_inputs.addEventListener("keypress", (e) => {
-            check_answer(e.target.parentNode.id);
+            if(e.key == 'Enter') check_answer(e.target.parentNode.id);
           });
         </script>
       </div>
