@@ -1,7 +1,21 @@
 
-from flask import Flask, render_template, jsonify, request
+from datetime import timedelta
+from distutils.debug import DEBUG
+from sre_constants import SUCCESS
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask_jwt_extended import *
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+
+app.config.update(
+  DEBUG = True,
+  JWT_SECRET_KEY = 'SUPER KEY',
+  JWT_TOKEN_LOCATION = 'cookies',
+  JWT_ACCESS_TOKEN_RXPIRES = timedelta(hours = 1)
+)
+jwt = JWTManager(app)
 # from bson.json_util import dumps
 import json
 from pymongo import MongoClient
@@ -23,26 +37,74 @@ import random
 # db.users.insert_one(data)
 
 @app.route('/')
-def home():
-  userList = list(db.users.find({'cnt_success': { '$exists': True}}))
-  rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
-  rank_list = []
-  for data in rank:
-    rank_list.append({
-      'id': data['id'],
-      'cnt_success': data['cnt_success'],
-      'cnt_fail': data['cnt_fail'],
-      'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + data['cnt_fail']) * 100)
-    })
-  answers_list = list(db.answers.find({}))
-  random_num = random.randrange(0,3)
-  answers = {
-    'name': answers_list[random_num]['name'],
-    'answer': answers_list[random_num]['answer'],
-    'img': answers_list[random_num]['img']
-  }
+def index():
+  return render_template('index.html')
+
+@app.route('/singup', methods = ['POST'])
+def singup():
+  if request.method =='POST':
+    id = request.form.get('id')
+    pw = request.form.get('pw')
+    if(db.users.find_one({'userId': id})): #아이디 이미 있을 때
+      return jsonify({'result': 'exist', 'msg':'아이디가 이미 있음'})
+    
+    pw_hash = bcrypt.generate_password_hash(pw)
+    doc = {'id': id, 'pwd': pw_hash}
+    db.users.insert_one(doc)
+    return jsonify({'result': 'success', 'msg': '회원가입 되었습니다.'})
+    
+  else:
+    return render_template('index.html')
+
+@app.route('/login', methods = ['POST'])
+def login():
+  userId = request.form.get('id')
+  userPW = request.form.get('pw')
+  dbUser = db.users.find_one({'id': userId})
+  checkPW = bcrypt.check_password_hash(dbUser['pwd'], userPW)
   
-  return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
+  if(not dbUser):
+    return jsonify({'result': 'fail', 'msg': '존재하지 않는 아이디 입니다.'})
+  if(not checkPW):
+    return jsonify({{'result': 'fail', 'msg': '비밀번호가 일치하지 않습니다..'}})
+  if(dbUser and checkPW):
+    access_token = create_access_token(identity=userId , expires_delta=False)
+    resp = jsonify({'login': True})
+    set_access_cookies(resp, access_token)
+    return resp, 200
+  else:
+    return jsonify(result = 'Fail')
+
+
+@app.route('/main')
+@jwt_required(optional=True)
+
+def home():
+  current_identity = get_jwt_identity()
+  if current_identity :
+    userList = list(db.users.find({'cnt_success': { '$exists': True}}))
+    rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
+    rank_list = []
+    for data in rank:
+      rank_list.append({
+        'id': data['id'],
+        'cnt_success': data['cnt_success'],
+        'cnt_fail': data['cnt_fail'],
+        'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + data['cnt_fail']) * 100)
+      })
+    answers_list = list(db.answers.find({}))
+    random_num = random.randrange(0,3)
+    answers = {
+      'name': answers_list[random_num]['name'],
+      'answer': answers_list[random_num]['answer'],
+      'img': answers_list[random_num]['img']
+    }
+    
+    return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
+  else:
+    return redirect(url_for('index'))
+
+  
 
 @app.route('/success', methods=['POST'])
 def add_count_success():
@@ -60,47 +122,7 @@ def add_count_fail():
 
   return jsonify({'result': 'success'})
 
-@app.route('/makeid', methods=['POST'])
-def post_memo():
 
-    id_receive =request.form['id_give']  
-    pw_receive = request.form['pw_give']  
-    pw_receive2 = request.form['pw_give2'] 
-    user = {'id': id_receive, 'pw': pw_receive, 'cnt_success':0, 'cnt_fail':0}
-    userList = list(db.users.find({}))
-
-    if id_receive == "":
-        return jsonify({'result': 'false'}) 
-    elif id_receive == "":
-        return jsonify({'result': 'false'})
-
-    elif pw_receive == "":
-        return jsonify({'result': 'false2'})
-
-    elif pw_receive == pw_receive2:
-        db.users.insert_one(user)
-        return jsonify({'result': 'success'})
-    else:
-        return jsonify({'result': 'false3'})
-    
-
-    # for i in userList :
-  
-    #     if id_receive == i['id']:
-    #         return jsonify({'result': 'same'})
-            
-    #     elif id_receive == "":
-    #         return jsonify({'result': 'false'})
-
-    #     elif pw_receive == "":
-    #         return jsonify({'result': 'false2'})
-        
-    #     elif pw_receive == pw_receive2:
-    #         db.users.insert_one(user)
-    #         return jsonify({'result': 'success'})
-
-    #     else:
-    #         return jsonify({'result': 'false3'})
 
 
 if __name__ == '__main__':

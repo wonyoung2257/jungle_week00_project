@@ -1,248 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>정글 워들 | B 2조</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> 정글 워들 | B 2조</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 구글폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
+      rel="stylesheet"
+    />
+    <!-- style -->
+    <style type="text/css">
+      * {
+        font-family: "Stylish", sans-serif;
+      }
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <!-- 구글폰트 -->
-  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet" />
-  <!-- style -->
-  <style type="text/css">
-    * {
-      font-family: "Stylish", sans-serif;
-    }
+      .wrap {
+        width: 900px;
+        margin: auto;
+      }
 
-    .wrap {
-      width: 900px;
-      margin: auto;
-    }
+      .comment {
+        color: blue;
+        font-weight: bold;
+      }
 
-    .comment {
-      color: blue;
-      font-weight: bold;
-    }
+      #post-box {
+        width: 500px;
+        /* margin: 20px ; */
+        /* padding: 50px; */
+        /* border: black solid; */
+        /* border-radius: 5px; */
+      }
 
-    #post-box {
-      width: 500px;
-      /* margin: 20px ; */
-      /* padding: 50px; */
-      /* border: black solid; */
-      /* border-radius: 5px; */
-    }
+      #login-box {
+        width: 500px;
+        /* margin: 20px ; */
+        /* padding: 50px; */
+        /* border: black solid; */
+        /* border-radius: 5px; */
+      }
 
-    #login-box {
-      width: 500px;
-      /* margin: 20px ; */
-      /* padding: 50px; */
-      /* border: black solid; */
-      /* border-radius: 5px; */
-    }
+      #make-box {
+        display: none;
+        /* margin: 20px ; */
+        /* padding: 50px; */
+        /* border: black solid; */
+        /* border-radius: 5px; */
+      }
 
-    #make-box {
-      display: none;
-      /* margin: 20px ; */
-      /* padding: 50px; */
-      /* border: black solid; */
-      /* border-radius: 5px; */
-    }
+      .edit-box {
+        width: 250px;
+        display: none;
+      }
+    </style>
+    <script>
+      function makepage() {
+        $("#make-box").show();
+        $("#login-box").hide();
+        $("#rule-box").hide();
+      }
 
-    .edit-box {
-      width: 250px;
-      display: none;
-    }
-  </style>
-  <script>
+      function back() {
+        $("#make-box").hide();
+        $("#login-box").show();
+        $("#rule-box").show();
+      }
+    </script>
+  </head>
 
-    function makepage() {
-      $("#make-box").show();
-      $("#login-box").hide();
-      $("#rule-box").hide();
-    }
-
-    function back() {
-      $("#make-box").hide();
-      $("#login-box").show();
-      $("#rule-box").show();
-    }
-
-    function makeid() {
-      let id = $("#new_id").val();
-      let pw = $("#new_password").val();
-      let pw2 = $("#new_password2").val();
-
-      $.ajax({
-        type: "post", //
-        url: "/makeid", // /memo라는 url에 요청하겠다.
-        data: { 'id_give': id, 'pw_give': pw, 'pw_give2': pw2 }, // 데이터를 주는 방법
-        success: function (response) { // 성공하면
-          if (response["result"] == "success") {
-            alert("저장 완료!");
-            // 3. 성공 시 페이지 새로고침하기
-            window.location.reload();
-          } else if (response["result"] == "same") {
-            alert("중복된 타이틀입니다")
-          } else if (response["result"] == "false") {
-            alert("아이디를 입력하세요")
-          } else if (response["result"] == "false2") {
-            alert("비밀번호를 입력하세요")
-          } else if (response["result"] == "false3") {
-            alert("비밀번호가 일치하지 않습니다")
-          } else {
-            alert("서버 오류!")
-          }
-        }
-      })
-    }
-
-  // function login() {
-  //     let new_title = $("#new-title"+title).val();
-  //     let new_comment = $("#new-content"+title).val();
-  //     // 2. memo에 POST 방식으로 메모 생성 요청하기
-  //     $.ajax({
-  //         type: "POST",
-  //         url: "/memo/edit",
-  //         data: {title_give: new_title, comment_give: new_comment, gijon_title: title}, // 데이터를 주는 방법
-  //         success: function (response) { // 성공하면
-  //             if (response["result"] == "success") {
-  //                 alert("수정 완료!");
-  //                 // 3. 성공 시 페이지 새로고침하기
-  //                 window.location.reload();
-  //             } else {
-  //                 alert("서버 오류!")
-  //             }
-  //         }
-  //     })
-  // }
-
-
-  </script>
-
-</head>
-
-<body>
-
-  <div class="wrap">
-    <div class="jumbotron" id="rule-box">
-      <div class="text-center">
-        <botton class="btn btn-primary">
-          <h1 class="display-4">How to play "Jungle wordle"
-          </h1>
-        </botton>
-      </div>
-      <p>
-      </p>
-      <div>
+  <body>
+    <div class="wrap">
+      <div class="jumbotron" id="rule-box">
         <div class="text-center">
-          <h3 class="text-lg leading-6 font-medium text-gray-900" id="headlessui-dialog-title-6">게임 방법
-          </h3>
-          <div class="mt-2">
-            <p class="text-sm text-gray-500">B조 동료의 이름을 6번 만에 맞춰보세요.
-            </p>
-            <p class="text-sm text-gray-500">시도의 결과는 타일의 색 변화로 나타납니다.
-            </p>
-            <p class="text-sm text-gray-500"> 성을 제외한 이름만 맞추면 됩니다.
-            </p>
-            <div class="flex justify-center mb-1 mt-4">
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-green-500 text-white border-green-500 cell-animation">
-                ㅎ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅏ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㄴ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅡ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㄹ</div>
+          <botton class="btn btn-primary">
+            <h1 class="display-4">How to play "Jungle wordle"</h1>
+          </botton>
+        </div>
+        <p></p>
+        <div>
+          <div class="text-center">
+            <h3
+              class="text-lg leading-6 font-medium text-gray-900"
+              id="headlessui-dialog-title-6"
+            >
+              게임 방법
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                B조 동료의 이름을 6번 만에 맞춰보세요.
+              </p>
+              <p class="text-sm text-gray-500">
+                시도의 결과는 타일의 색 변화로 나타납니다.
+              </p>
+              <p class="text-sm text-gray-500">
+                성을 제외한 이름만 맞추면 됩니다.
+              </p>
+              <div class="flex justify-center mb-1 mt-4">
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-green-500 text-white border-green-500 cell-animation"
+                >
+                  ㅎ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅏ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㄴ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅡ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㄹ
+                </div>
+              </div>
+              <p class="text-sm text-gray-500">
+                ㅎ는 '단어'에 포함되어 있으며, 제 위치에 있습니다.
+              </p>
+              <div class="flex justify-center mb-1 mt-4">
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅍ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅣ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-yellow-500 text-white border-yellow-500 cell-animation"
+                >
+                  ㄹ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㄱ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅣ
+                </div>
+              </div>
+              <p class="text-sm text-gray-500">
+                ㄹ은 단어에는 포함되나, 다른 위치에 있습니다.
+              </p>
+              <div class="flex justify-center mb-1 mt-4">
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅂ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅗ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㄹ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-slate-400 text-white border-slate-400 cell-animation"
+                >
+                  ㅡ
+                </div>
+                <div
+                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
+                >
+                  ㅁ
+                </div>
+              </div>
+              <p class="text-sm text-gray-500">
+                ㅡ는 단어에도 포함되지 않고, 어떤 위치에도 있지 않습니다.
+              </p>
             </div>
-            <p class="text-sm text-gray-500">ㅎ는 '단어'에 포함되어 있으며, 제 위치에 있습니다.</p>
-            <div class="flex justify-center mb-1 mt-4">
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅍ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅣ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-yellow-500 text-white border-yellow-500 cell-animation">
-                ㄹ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㄱ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅣ</div>
-            </div>
-            <p class="text-sm text-gray-500">ㄹ은 단어에는 포함되나, 다른 위치에 있습니다.</p>
-            <div class="flex justify-center mb-1 mt-4">
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅂ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅗ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㄹ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-slate-400 text-white border-slate-400 cell-animation">
-                ㅡ</div>
-              <div
-                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
-                ㅁ</div>
-            </div>
-            <p class="text-sm text-gray-500">ㅡ는 단어에도 포함되지 않고, 어떤 위치에도 있지 않습니다.
-            </p>
           </div>
         </div>
       </div>
+
+      <form id="login-form" class="wrap" type="submit">
+        <h1>로그인</h1>
+        <label for="id">ID: </label>
+        <input type="text" id="id" />
+        <label for="pw">PW: </label>
+        <input type="password" id="pw" />
+        <input id="submit-btn" type="submit" value="로그인" />
+        <button type="button">회원가입</button>
+      </form>
+
+      <form id="singup-form" class="wrap" type="submit">
+        <h1>회원가입</h1>
+        <label for="id">ID: </label>
+        <input id="id" />
+        <label for="pw">PW: </label>
+        <input id="pw" />
+        <label for="pw2">PW 확인: </label>
+        <input id="pw2" />
+        <input id="singup-btn" type="submit" value="회원가입" />
+        <button onclick="location.href = '/'" type="button">뒤로가기</button>
+      </form>
     </div>
 
-    <div id="login-box">
-      <p>
-        이름: <input type="text" id="inserted_id" />
-      </p>
-      <p>
-        비밀번호: <input type="password" id="password" />
-      </p>
-      <p>
-        <button type="submit" onclick="login()"> 로그인하기 </button>
-        <button type="submit" onclick="makepage()"> 회원가입</button>
-      </p>
-    </div>
+    <script>
+      $("#singup-form").on("submit", (e) => {
+        e.preventDefault();
+        const id = $("#id").val().trim();
+        const pw = $("#pw").val().trim();
+        const pw2 = $("#pw2").val().trim();
+        console.log("test");
+        if (id === "") {
+          alert("아이디를 입력해주세요");
+        } else if (pw === "" || pw2 === "") {
+          alert("비밀번호를 입력해주세요");
+        } else if (pw !== pw2) {
+          alert("비밀번호가 일치하지 않습니다");
+        } else {
+          $.ajax({
+            url: "/singup",
+            data: { id, pw, pw2 },
+            method: "POST",
+            success: (response) => {
+              if (response["result"] === "exist") {
+                alert(response["msg"]);
+              } else if (response["result"] === "succes") {
+                alert(response["msg"]);
+                location.href = "/";
+              }
+            },
+          });
+        }
+      });
 
-    <div id="make-box">
-      <p>
-        이름: <input type="text" id="new_id" />
-      </p>
-      <p>
-        비밀번호: <input type="password" id="new_password" />
-      </p>
-      <p>
-        비밀번호 확인: <input type="password" id="new_password2" />
-      </p>
-      <button type="submit" onclick="back()"> 뒤로가기 </button>
-      <button type="submit" onclick="makeid()"> 가입요청 </button>
-    </div>
-  </div>
-</body>
+      $("#login-form").on("submit", (e) => {
+        e.preventDefault();
+        const id = $("#id").val();
+        const pw = $("#pw").val();
+
+        $.ajax({
+          url: "/login",
+          method: "POST",
+          data: {
+            id,
+            pw,
+          },
+          success: (response) => {
+            if (response["result"] === "fail") {
+              alert(response["msg"]);
+              return;
+            }
+            localStorage.setItem("userID", id);
+            location.href = "/main";
+          },
+        });
+      });
+    </script>
+  </body>
 </html>

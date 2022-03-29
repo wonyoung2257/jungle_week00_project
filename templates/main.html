@@ -311,13 +311,14 @@
               user_input[i].style.color = "white";
             });
             answer_count -= 1;
+            let user_id = localStorage.getItem("userID");
             if (green.length == answer.length) {
-              success("허원영");
+              success(user_id);
               return;
             }
 
             if (answer_count == 0) {
-              fail("허원영");
+              fail(user_id);
               return;
             }
           };
