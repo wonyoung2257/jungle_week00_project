@@ -34,8 +34,8 @@
     <link href="/static/css/reset.css" rel="stylesheet" />
     <style>
       .wrapper {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
         margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
@@ -48,7 +48,7 @@
       .main_wrapper {
         display: flex;
         height: 700px;
-        width: auto;
+        /* width: auto; */
         background-color: rebeccapurple;
       }
       .ranking {
@@ -56,8 +56,26 @@
         background-color: red;
       }
       .game {
+        padding: 2rem;
         flex-grow: 3;
-        background-color: blue;
+        background-color: white;
+        box-sizing: border-box;
+        text-align: center;
+      }
+      .game_header {
+        margin-bottom: 20px;
+      }
+      .game_input {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        font-weight: 600;
+        border: 2px solid rgba(59, 130, 246, 0.5);
+        border-radius: 5px;
+        text-align: center;
+      }
+      .input_wrapper {
+        margin-bottom: 10px;
       }
     </style>
   </head>
@@ -67,8 +85,94 @@
       <div class="main_wrapper">
         <div class="ranking">랭킹 시스템</div>
 
-        asdfasdf
-        <div class="game">게임</div>
+        <div class="game">
+          <h2 class="game_header">이름을 맞추세요!!</h2>
+          <p class="input_wrapper input_wrapper0">
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+            <input type="text" class="game_input" maxlength="1" />
+          </p>
+          <p class="input_wrapper">
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <button class="game_button">제출</button>
+          </p>
+          <p class="input_wrapper">
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <button class="game_button">제출</button>
+          </p>
+          <p class="input_wrapper">
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <button class="game_button">제출</button>
+          </p>
+          <p class="input_wrapper">
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <input type="text" class="game_input" />
+            <button class="game_button">제출</button>
+          </p>
+        </div>
+        <script>
+          var replaceAt = function (input, index, character) {
+            return (
+              input.substr(0, index) +
+              character +
+              input.substr(index + character.length)
+            );
+          };
+          let answer = "ㅇㅜㅓㄴㅇㅕㅇ";
+
+          document
+            .querySelector(".input_wrapper0")
+            .addEventListener("keypress", (e) => {
+              if (e.key == "Enter") {
+                let user_input = document.querySelectorAll(".game_input");
+                let temp_answer = answer.split("");
+                // 게임 로직
+                for (let i = 0; i < answer.length; i++) {
+                  if (user_input[i].value === temp_answer[i]) {
+                    temp_answer[i] = "";
+                    user_input[i].style.backgroundColor = "#22C55E";
+                    user_input[i].style.color = "white";
+                  } else if (temp_answer.includes(user_input[i].value)) {
+                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                    user_input[i].style.backgroundColor = "#EAB308";
+                    user_input[i].style.color = "white";
+                  } else {
+                    user_input[i].style.backgroundColor = "#94A3B8";
+                    user_input[i].style.color = "white";
+                  }
+                  user_input[i].readOnly = true;
+                  console.log(temp_answer);
+                }
+              }
+            });
+        </script>
       </div>
     </div>
   </body>
