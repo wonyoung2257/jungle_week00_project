@@ -83,12 +83,12 @@
     function makeid() {
       let id = $("#new_id").val();
       let pw = $("#new_password").val();
-      let pw2 = $("#new-password2").val();
+      let pw2 = $("#new_password2").val();
 
       $.ajax({
         type: "post", //
         url: "/makeid", // /memo라는 url에 요청하겠다.
-        data: { id_give: id, pw_give: pw, pw_give2: pw2 }, // 데이터를 주는 방법
+        data: { 'id_give': id, 'pw_give': pw, 'pw_give2': pw2 }, // 데이터를 주는 방법
         success: function (response) { // 성공하면
           if (response["result"] == "success") {
             alert("저장 완료!");

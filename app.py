@@ -44,7 +44,7 @@ def home():
   }
   
 
-  return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
+  return render_template('index.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
 
 @app.route('/success', methods=['POST'])
 def add_count_success():
@@ -64,29 +64,45 @@ def add_count_fail():
 
 @app.route('/makeid', methods=['POST'])
 def post_memo():
+
     id_receive =request.form['id_give']  
     pw_receive = request.form['pw_give']  
     pw_receive2 = request.form['pw_give2'] 
     user = {'id': id_receive, 'pw': pw_receive, 'cnt_success':0, 'cnt_fail':0}
-    list = db.memos.find({}, {'_id': 0})
+    userList = list(db.users.find({}))
+
+    if id_receive == "":
+        return jsonify({'result': 'false'}) 
+    elif id_receive == "":
+        return jsonify({'result': 'false'})
+
+    elif pw_receive == "":
+        return jsonify({'result': 'false2'})
+
+    elif pw_receive == pw_receive2:
+        db.users.insert_one(user)
+        return jsonify({'result': 'success'})
+    else:
+        return jsonify({'result': 'false3'})
     
-    for i in list :
 
-        if id_receive == i['id']:
-            return jsonify({'result': 'same'})
+    # for i in userList :
+  
+    #     if id_receive == i['id']:
+    #         return jsonify({'result': 'same'})
+            
+    #     elif id_receive == "":
+    #         return jsonify({'result': 'false'})
 
-        elif id_receive == "":
-            return jsonify({'result': 'false'})
-
-        elif pw_receive == "":
-            return jsonify({'result': 'false2'})
+    #     elif pw_receive == "":
+    #         return jsonify({'result': 'false2'})
         
-        elif pw_receive == pw_receive2:
-            db.memos.insert_one(user)
-            return jsonify({'result': 'success'})
+    #     elif pw_receive == pw_receive2:
+    #         db.users.insert_one(user)
+    #         return jsonify({'result': 'success'})
 
-        else:
-            return jsonify({'result': 'false3'})
+    #     else:
+    #         return jsonify({'result': 'false3'})
 
 
 if __name__ == '__main__':
