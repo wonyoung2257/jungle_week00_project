@@ -50,9 +50,7 @@ def home():
 def add_count_success():
   id = request.form['id']
   new_cnt_success = int(db.users.find_one({'id': id})['cnt_success']) + 1
-  new_cnt_fail = int(db.users.find_one({'id': id})['cnt_fail']) - 1
   db.users.update_one({'id': id}, {'$set': {'cnt_success': new_cnt_success}})
-  db.users.update_one({'id': id}, {'$set': {'cnt_fail': new_cnt_fail}})
 
   return jsonify({'result': 'success'})
 
