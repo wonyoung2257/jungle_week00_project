@@ -60,5 +60,17 @@ def add_count_fail():
 
   return jsonify({'result': 'success'})
 
+@app.route('/rank', methods=['GET'])
+def rank_list():
+  rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
+  rank_list = []
+  for data in rank:
+    rank_list.append({
+      'id': data['id'],
+      'cnt_success': data['cnt_success'],
+      'cnt_fail': data['cnt_fail']
+    })
+  return jsonify({'result': 'success', 'rank_list': rank_list})
+
 if __name__ == '__main__':
   app.run('0.0.0.0', port=5000, debug =True)

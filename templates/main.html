@@ -133,91 +133,114 @@
         </div>
         <div class="game">
           <h2 class="game_header">이름을 맞추세요!!</h2>
-          <p class="input_wrapper input_wrapper0">
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-            <input type="text" class="game_input" maxlength="1" />
-          </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
-          </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
-          </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
-          </p>
-          <p class="input_wrapper">
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <input type="text" class="game_input" />
-            <button class="game_button">제출</button>
-          </p>
+          <div class="game_input_wapper">
+            <p id="input_wrapper0" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+            <p id="input_wrapper1" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+            <p id="input_wrapper2" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+            <p id="input_wrapper3" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+            <p id="input_wrapper4" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+            <p id="input_wrapper5" class="input_wrapper">
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+              <input type="text" class="game_input" maxlength="1" />
+            </p>
+          </div>
         </div>
         <script>
-          var replaceAt = function (input, index, character) {
-            return (
-              input.substr(0, index) +
-              character +
-              input.substr(index + character.length)
-            );
-          };
           let answer = "ㅇㅜㅓㄴㅇㅕㅇ";
+          let game_inputs = document.querySelector(".game_input_wapper");
+          const check_answer = (select) => {
+            // 사용자 input값 받아 오기
+            let user_input = document.querySelector(`#${select}`).children;
 
-          document
-            .querySelector(".input_wrapper0")
-            .addEventListener("keypress", (e) => {
-              if (e.key == "Enter") {
-                let user_input = document.querySelectorAll(".game_input");
-                let temp_answer = answer.split("");
-                // 게임 로직
-                for (let i = 0; i < answer.length; i++) {
-                  if (user_input[i].value === temp_answer[i]) {
-                    temp_answer[i] = "";
-                    user_input[i].style.backgroundColor = "#22C55E";
-                    user_input[i].style.color = "white";
-                  } else if (temp_answer.includes(user_input[i].value)) {
-                    temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
-                    user_input[i].style.backgroundColor = "#EAB308";
-                    user_input[i].style.color = "white";
-                  } else {
-                    user_input[i].style.backgroundColor = "#94A3B8";
-                    user_input[i].style.color = "white";
-                  }
-                  user_input[i].readOnly = true;
-                  console.log(temp_answer);
-                }
+            // input 값 유효성 검사하기
+
+            let green = [];
+            let yellow = [];
+            let gray = [];
+            let temp_answer = answer.split("");
+            // 게임 로직
+            for (let i = 0; i < answer.length; i++) {
+              if (user_input[i].value === answer[i]) {
+                temp_answer[i] = "";
+                green.push(i);
               }
+              user_input[i].readOnly = true;
+            }
+            for (let i = 0; i < answer.length; i++) {
+              if (
+                temp_answer.includes(user_input[i].value) &&
+                !green.includes(i)
+              ) {
+                temp_answer[temp_answer.indexOf(user_input[i].value)] = "";
+                yellow.push(i);
+              } else if (!green.includes(i) && !yellow.includes(i)) {
+                gray.push(i);
+              }
+              user_input[i].readOnly = true;
+            }
+
+            green.map((i) => {
+              user_input[i].style.backgroundColor = "#22C55E";
+              user_input[i].style.color = "white";
             });
+            yellow.map((i) => {
+              user_input[i].style.backgroundColor = "#EAB308";
+              user_input[i].style.color = "white";
+            });
+            gray.map((i) => {
+              user_input[i].style.backgroundColor = "#94A3B8";
+              user_input[i].style.color = "white";
+            });
+          };
+
+          game_inputs.addEventListener("keypress", (e) => {
+            check_answer(e.target.parentNode.id);
+          });
         </script>
       </div>
     </div>
