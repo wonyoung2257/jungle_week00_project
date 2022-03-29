@@ -1,11 +1,9 @@
 
-from unittest import result
 from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 # from bson.json_util import dumps
 import json
-from bson.objectid import ObjectId
 from pymongo import MongoClient
 # client = MongoClient('localhost', 27017)
 import certifi
@@ -43,8 +41,7 @@ def home():
     'img': answers_list[random_num]['img']
   }
   
-
-  return render_template('index.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
+  return render_template('main.html', ranking=rank_list, answers= json.dumps(answers, ensure_ascii=False))
 
 @app.route('/success', methods=['POST'])
 def add_count_success():

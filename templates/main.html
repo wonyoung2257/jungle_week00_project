@@ -5,6 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>정글 워들</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
+
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -63,32 +83,12 @@
   </head>
   <body>
     <div class="wrapper">
-      <header class="header">정글 워들</header>
+      <header class="header text-xl grow font-bold">Jungle Wordle</header>
       <div class="main_wrapper">
-        <div class="ranking" id="ranking">
+        <div class="ranking list-none" id="ranking">
           랭킹 시스템 {% for rank in ranking %}
           <li>{{ rank.id }} {{ rank.cnt_success }} {{ rank.cnt_fail }}</li>
           {% endfor %}
-          <a
-            href="#"
-            onclick="success('박준규')"
-            class="card-footer-item has-text-danger"
-          >
-            성공
-            <span class="icon">
-              <i class="fas fa-ban"></i>
-            </span>
-          </a>
-          <a
-            href="#"
-            onclick="fail('박준규')"
-            class="card-footer-item has-text-danger"
-          >
-            실패
-            <span class="icon">
-              <i class="fas fa-ban"></i>
-            </span>
-          </a>
 
           <!-- The Modal -->
           <div id="myModal_success" class="modal">
