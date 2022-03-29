@@ -86,11 +86,13 @@ def home():
     rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
     rank_list = []
     for data in rank:
+      cnt_fail = 0
+      if ('cnt_fail' in data): cnt_fail = data['cnt_fail']
       rank_list.append({
         'id': data['id'],
         'cnt_success': data['cnt_success'],
-        'cnt_fail': data['cnt_fail'],
-        'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + data['cnt_fail']) * 100)
+        'cnt_fail': cnt_fail,
+        'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + cnt_fail) * 100)
       })
     answers_list = list(db.answers.find({}))
     random_num = random.randrange(0,3)
@@ -109,7 +111,9 @@ def home():
 @app.route('/success', methods=['POST'])
 def add_count_success():
   id = request.form['id']
-  new_cnt_success = int(db.users.find_one({'id': id})['cnt_success']) + 1
+  old_cnt_success = 0
+  if ('cnt_success' in db.users.find_one({'id': id})): old_cnt_success = db.users.find_one({'id': id})['cnt_success']
+  new_cnt_success = old_cnt_success + 1
   db.users.update_one({'id': id}, {'$set': {'cnt_success': new_cnt_success}})
 
   return jsonify({'result': 'success'})
@@ -117,7 +121,9 @@ def add_count_success():
 @app.route('/fail', methods=['POST'])
 def add_count_fail():
   id = request.form['id']
-  new_cnt_fail = int(db.users.find_one({'id': id})['cnt_fail']) + 1
+  old_cnt_fail = 0
+  if ('cnt_fail' in db.users.find_one({'id': id})): old_cnt_fail = db.users.find_one({'id': id})['cnt_fail']
+  new_cnt_fail = old_cnt_fail + 1
   db.users.update_one({'id': id}, {'$set': {'cnt_fail': new_cnt_fail}})
 
   return jsonify({'result': 'success'})
