@@ -85,7 +85,7 @@
     <div class="wrapper">
       <header class="header text-xl grow font-bold">Jungle Wordle</header>
       <div class="main_wrapper">
-        <div class="ranking list-none" id="ranking">
+        <div class="ranking list-none min-w-[150px]" id="ranking">
           랭킹 시스템 {% for rank in ranking %}
           <li>{{ rank.id }} {{ rank.cnt_success }} {{ rank.cnt_fail }}</li>
           {% endfor %}
@@ -100,26 +100,22 @@
                 >
               </p>
               <p style="text-align: center; line-height: 1.5">
-                <br />{{ answers }}
+                <img id="success_img" src="" alt="" />
+                <br />
+                <span class="font-weight-bold text-lg-center"
+                  >정답은 <span id="success_span">허원영</span>입니다.</span
+                >
+                <br />
+                <!-- <br />{{ answers|tojson }} -->
               </p>
               <p><br /></p>
-              <div
-                style="
-                  cursor: pointer;
-                  background-color: #dddddd;
-                  text-align: center;
-                  padding-bottom: 10px;
-                  padding-top: 10px;
-                "
+
+              <button
+                class="pop_bt btn-success rounded h-8"
+                onclick="window.location.reload()"
               >
-                <span
-                  class="pop_bt"
-                  style="font-size: 13pt"
-                  onclick="window.location.reload()"
-                >
-                  닫기
-                </span>
-              </div>
+                닫기
+              </button>
             </div>
           </div>
           <!--End Modal-->
@@ -134,41 +130,43 @@
                 >
               </p>
               <p style="text-align: center; line-height: 1.5">
-                <br />{{ answers }}
-              </p>
-              <p><br /></p>
-              <div
-                style="
-                  cursor: pointer;
-                  background-color: #dddddd;
-                  text-align: center;
-                  padding-bottom: 10px;
-                  padding-top: 10px;
-                "
-              >
-                <span
-                  class="pop_bt"
-                  style="font-size: 13pt"
-                  onclick="window.location.reload()"
+                <img
+                  id="fail_img"
+                  src="https://ca.slack-edge.com/T01FZU4LB4Y-U038SKTUC4D-2195b3bed407-512"
+                  alt=""
+                />
+                <br />
+                <span class="font-weight-bold text-lg-center"
+                  >정답은 <span id="fail_span">허원영</span>입니다.</span
                 >
-                  닫기
-                </span>
-              </div>
+                <br />
+                <!-- <br />{{ answers }} -->
+              </p>
+              <button
+                class="pop_bt btn-success rounded h-8"
+                onclick="window.location.reload()"
+              >
+                닫기
+              </button>
             </div>
           </div>
           <!--End Modal-->
         </div>
 
         <div class="game">
-          <h2 class="game_header">이름을 맞추세요!!</h2>
+          <h2 class="game_header text-xl font-bold">이름을 맞추세요!!</h2>
           <div class="game_input_container"></div>
         </div>
         <script>
           let data = JSON.parse(`{{ answers | safe }}`);
+          document.querySelector("#success_img").src = data.img;
+          document.querySelector("#fail_img").src = data.img;
+          document.querySelector("#success_span").innerHTML = data.name;
+          document.querySelector("#fail_span").innerHTML = data.name;
           let answer = data.answer;
           console.log(answer);
           // let user_answer = []
-          let answer_count = 0;
+          let answer_count = 6;
           //정답 값에 따라 박스 생성 함수
           const show_game_input = (answer) => {
             let $game_input_container = document.querySelector(
@@ -239,13 +237,13 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
-
+            answer_count -= 1;
             if (green.length == answer.length) {
               success("허원영");
               return;
             }
 
-            if (answer_count == 6) {
+            if (answer_count == 0) {
               fail("허원영");
               return;
             }
@@ -255,7 +253,7 @@
           game_inputs.addEventListener("keypress", (e) => {
             if (e.key == "Enter") {
               check_answer(e.target.parentNode.id);
-              answer_count += 1;
+              console.log(answer_count);
             }
           });
         </script>
