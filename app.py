@@ -24,14 +24,15 @@ import random
 
 @app.route('/')
 def home():
-  userList = list(db.users.find({}))
+  userList = list(db.users.find({'cnt_success': { '$exists': True}}))
   rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
   rank_list = []
   for data in rank:
     rank_list.append({
       'id': data['id'],
       'cnt_success': data['cnt_success'],
-      'cnt_fail': data['cnt_fail']
+      'cnt_fail': data['cnt_fail'],
+      'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + data['cnt_fail']) * 100)
     })
   answers_list = list(db.answers.find({}))
   random_num = random.randrange(0,3)
