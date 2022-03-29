@@ -9,6 +9,7 @@ from pymongo import MongoClient
 # client = MongoClient('localhost', 27017)
 client = MongoClient('mongodb+srv://test:test@cluster0.b9rhp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 db = client.junglewordle
+import random
 # data = {
 #   'name': '허원영',
 #   'answer': 'ㅇㅜㅓㄴㅇㅕㅇ',
@@ -24,7 +25,22 @@ userList = list(db.users.find({}))
 
 @app.route('/')
 def home():
-  return render_template('main.html')
+  rank = sorted(userList, key=lambda user: (user['cnt_success']), reverse=True)
+  rank_list = []
+  for data in rank:
+    rank_list.append({
+      'id': data['id'],
+      'cnt_success': data['cnt_success'],
+      'cnt_fail': data['cnt_fail']
+    })
+  answers_list = list(db.answers.find({}))
+  random_num = random.randrange(0,3)
+  answers = {
+    'name': answers_list[random_num]['name'],
+    'answer': answers_list[random_num]['answer'],
+    'img': answers_list[random_num]['img']
+  }
+  return render_template('main.html', ranking=rank_list, answers=answers)
 
 @app.route('/rank', methods=['GET'])
 def rank_list():
@@ -33,8 +49,8 @@ def rank_list():
   for data in rank:
     rank_list.append({
       'id': data['id'],
-      'cntSuccess': data['cnt_success'],
-      'failSuccess': data['cnt_fail']
+      'cnt_success': data['cnt_success'],
+      'cnt_fail': data['cnt_fail']
     })
 
   return jsonify({'result': 'success', 'rank_list': rank_list})
