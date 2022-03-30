@@ -86,7 +86,7 @@
       </div>
       <div class="flex">
         <div class="game grow-[2] flex-auto">
-          <h2 class="game_header text-2xl font-bold">이름을 맞추세요!!</h2>
+          <h2 class="game_header text-2xl font-bold">이름을 맞추세요!!(성x)</h2>
           <div class="game_input_container"></div>
         </div>
         <div class="ranking grow-[1] flex-auto list-none" id="ranking">
@@ -305,17 +305,23 @@
         <script>
           //DB에서 이름, 사진, 문제 받아옴
           let data = JSON.parse(`{{ answers | safe }}`);
+          // 로컬 스토리지에 값이 없다면 입력
 
-          let answer = data.answer;
-          let gameState = { answer: answer, guesses: [] };
-          localStorage.setItem("answer", JSON.stringify(gameState));
-          localStorage.setItem("guesses", JSON.stringify(["dnjs"]));
+          if (localStorage.getItem("answer") === null) {
+            localStorage.setItem("answer", data.answer);
+          }
+          if (localStorage.getItem("guesses") === null) {
+            localStorage.setItem("guesses", JSON.stringify([]));
+          }
 
-          let temp = JSON.parse(localStorage.getItem("guesses"));
-          console.log(temp);
-          temp.push("asdf");
-          console.log(temp);
-          localStorage.setItem("guesses", JSON.stringify(temp));
+          let answer = localStorage.getItem("answer");
+
+          // localStorage.setItem("answer", JSON.stringify(gameState));
+          // localStorage.setItem("guesses", JSON.stringify(["dnjs"]));
+
+          // let temp = JSON.parse(localStorage.getItem("guesses"));
+
+          // localStorage.setItem("guesses", JSON.stringify(temp));
           //모달 창 화면 설정
 
           document.querySelector("#success_img").src = data.img;
@@ -339,7 +345,6 @@
 
             if (input_el.value.trim() !== "" && input_el.nextSibling) {
               let first_word = getConstantVowel(input_el.value.trim());
-              console.log(first_word);
               if (first_word) {
                 input_el.value = first_word;
               }
@@ -461,29 +466,105 @@
 
           create_game_input(answer);
 
+          // 사용자가 입력한 guesses가 있다면 input창에 넣어서 활성화 시킨다.
+          const fill_input = (guesses) => {
+            let game_input = document.querySelector(
+              ".game_input_container"
+            ).children;
+            console.log(game_input[0].children[0].value);
+
+            // console.log(
+            //   document.querySelector(`#${game_input}`).children[0].value
+            // );
+            guesses.map((user_input, index) => {
+              user_input = user_input.split(",");
+              let green = [];
+              console.log(green);
+              let yellow = [];
+              let gray = [];
+              let temp_answer = answer.split("");
+              console.log(temp_answer);
+              console.log(user_input);
+              // 게임 로직
+              for (let i = 0; i < answer.length; i++) {
+                console.log(user_input[i]);
+                if (user_input[i] === answer[i]) {
+                  temp_answer[i] = "";
+                  green.push(i);
+                }
+                game_input[index].children[i].value.readOnly = true;
+              }
+              for (let i = 0; i < answer.length; i++) {
+                if (temp_answer.includes(user_input[i]) && !green.includes(i)) {
+                  temp_answer[temp_answer.indexOf(user_input[i])] = "";
+                  yellow.push(i);
+                } else if (!green.includes(i) && !yellow.includes(i)) {
+                  gray.push(i);
+                }
+                game_input[index].children[i].readOnly = true;
+              }
+              for (let i = 0; i < 5; i++) {
+                game_input[index + 1].children[i].disabled = false;
+                // console.log(game_input[index+1].children[i].disabled=false);
+              }
+
+              green.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#22C55E";
+                game_input[index].children[i].style.color = "white";
+              });
+              yellow.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#EAB308";
+                game_input[index].children[i].style.color = "white";
+              });
+              gray.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#94A3B8";
+                game_input[index].children[i].style.color = "white";
+              });
+            });
+          };
+
+          fill_input(JSON.parse(localStorage.getItem("guesses")));
           //input의 정답값이 맞는지 확인하는 함수
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
             let next_input = null;
+            // 사용자가 입력한 input의 다음 input값을 가져온다.
+            // 비활성화 되어 있는 input의 값을 활성화 시키기 위한 코드
             if (document.querySelector(`#${select}`).nextSibling != null) {
               next_input = document.querySelector(`#${select}`).nextSibling
                 .childNodes;
             }
 
-            // input 값 유효성 검사하기
+            // input 값 입력하지 않은 칸이 있는지 검사하기
             for (let i = 0; i < user_input.length; i++) {
               if (user_input[i].value.trim() === "") {
                 alert("빈칸을 채워주세요");
                 return;
               }
             }
+            //localStorage guesses 배열에 사용자 입력저장
+            let guesses = [];
+            for (let i = 0; i < user_input.length; i++) {
+              guesses.push(user_input[i].value);
+            }
+            if (guesses.length > 0) {
+              let temp = JSON.parse(localStorage.getItem("guesses"));
+              temp.push(guesses.join());
+              localStorage.setItem("guesses", JSON.stringify(temp));
+            }
+
+            // 다음 input 칸이 있다면 활성화
             if (next_input !== null) {
               for (let i = 0; i < next_input.length; i++) {
                 next_input[i].disabled = false;
               }
             }
 
+            // input 창 정답 검사 로직 칸에 색칠함
             let green = [];
             let yellow = [];
             let gray = [];
@@ -521,15 +602,18 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
-            let user_id = localStorage.getItem("userID");
 
             //성공 실패 판별
+            let user_id = localStorage.getItem("userID");
             if (green.length == answer.length) {
-              success(user_id);
+              localStorage.removeItem("answer");
+              localStorage.removeItem("guesses") / success(user_id);
               return;
             }
 
             if (select === "input_wrap_5") {
+              localStorage.removeItem("answer");
+              localStorage.removeItem("guesses");
               fail(user_id);
               return;
             }
