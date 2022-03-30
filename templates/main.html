@@ -241,6 +241,27 @@
 
           console.log(answer);
 
+          // input 창 focus 이동 함수
+          const onKeyDownMoveEvent = (e) => {
+            const input_el = e.target;
+            console.log(input_el.value.length);
+            if (e.keyCode === 8) {
+              if (
+                input_el.value.length !== input_el.maxLength &&
+                input_el.previousSibling
+              ) {
+                input_el.previousSibling.focus();
+              }
+              return;
+            }
+            if (
+              input_el.value.length === input_el.maxLength &&
+              input_el.nextSibling
+            ) {
+              input_el.nextSibling.focus();
+            }
+          };
+
           //정답 값에 따라 박스 생성 함수
           const create_game_input = (answer) => {
             let $game_input_container = document.querySelector(
@@ -253,11 +274,11 @@
               let $input_id = document.querySelector(`#${input_id}`);
               if (i == 0) {
                 for (let j = 0; j < answer.length; j++) {
-                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1"/>`;
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" onkeydown ='onKeyDownMoveEvent(event)'/>`;
                 }
               } else {
                 for (let j = 0; j < answer.length; j++) {
-                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" disabled/>`;
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" disabled onkeydown ='onKeyDownMoveEvent(event)'/>`;
                 }
               }
             }
@@ -265,17 +286,14 @@
 
           create_game_input(answer);
 
-          let game_inputs = document.querySelector(".game_input_container");
-
           //input의 정답값이 맞는지 확인하는 함수
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
-            let next_input = document.querySelector(`#${select}`).nextSibling
-              .childNodes;
-
-            for (let i = 0; i < next_input.length; i++) {
-              next_input[i].abled;
+            let next_input = null;
+            if (document.querySelector(`#${select}`).nextSibling != null) {
+              next_input = document.querySelector(`#${select}`).nextSibling
+                .childNodes;
             }
 
             // input 값 유효성 검사하기
@@ -285,9 +303,10 @@
                 return;
               }
             }
-
-            for (let i = 0; i < user_input.length; i++) {
-              user_input[i];
+            if (next_input !== null) {
+              for (let i = 0; i < next_input.length; i++) {
+                next_input[i].disabled = false;
+              }
             }
 
             let green = [];
@@ -341,6 +360,7 @@
           };
 
           //game_inputs에 이벤트 위함 엔터키 이벤트 발생
+          let game_inputs = document.querySelector(".game_input_container");
           game_inputs.addEventListener("keypress", (e) => {
             if (e.key == "Enter") {
               check_answer(e.target.parentNode.id);
