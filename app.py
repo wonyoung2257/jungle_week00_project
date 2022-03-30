@@ -1,7 +1,5 @@
 
 from datetime import timedelta
-from distutils.debug import DEBUG
-from sre_constants import SUCCESS
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from flask_jwt_extended import *
 from flask_bcrypt import Bcrypt
@@ -54,7 +52,7 @@ def singup():
 @app.route('/login', methods = ['POST'])
 def login():
   userId = request.form.get('id')
-  userPW = request.form.get('pw')
+  userPW = request.form.get('pwd')
   dbUser = db.users.find_one({'id': userId})
   checkPW = bcrypt.check_password_hash(dbUser['pwd'], userPW)
   
