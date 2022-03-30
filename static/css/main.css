@@ -63,3 +63,11 @@
   border: 1px solid #888;
   width: 260px; /* Could be more or less, depending on screen size */
 }
+
+.table {
+  width: 100%;
+  border: 1px solid #444444;
+}
+th, td {
+  border: 1px solid #444444;
+}
