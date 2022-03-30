@@ -276,6 +276,15 @@
         <script>
           let data = JSON.parse(`{{ answers | safe }}`);
           let answer = data.answer;
+          let gameState = { answer: answer, guesses: [] };
+          localStorage.setItem("answer", JSON.stringify(gameState));
+          localStorage.setItem("guesses", JSON.stringify(["dnjs"]));
+
+          let temp = JSON.parse(localStorage.getItem("guesses"));
+          console.log(temp);
+          temp.push("asdf");
+          console.log(temp);
+          localStorage.setItem("guesses", JSON.stringify(temp));
           //모달 창 화면 설정
           document.querySelector("#success_img").src = data.img;
           document.querySelector("#fail_img").src = data.img;
