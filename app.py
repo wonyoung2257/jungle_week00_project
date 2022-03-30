@@ -52,14 +52,14 @@ def singup():
 @app.route('/login', methods = ['POST'])
 def login():
   userId = request.form.get('id')
-  userPW = request.form.get('pwd')
+  userPW = request.form.get('pw')
   dbUser = db.users.find_one({'id': userId})
   checkPW = bcrypt.check_password_hash(dbUser['pwd'], userPW)
   
   if(not dbUser):
     return jsonify({'result': 'fail', 'msg': '존재하지 않는 아이디 입니다.'})
   if(not checkPW):
-    return jsonify({{'result': 'fail', 'msg': '비밀번호가 일치하지 않습니다..'}})
+    return jsonify({'result': 'fail', 'msg': '비밀번호가 일치하지 않습니다..'})
   if(dbUser and checkPW):
     access_token = create_access_token(identity=userId , expires_delta=False)
     resp = jsonify({'login': True})

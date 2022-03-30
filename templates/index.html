@@ -309,8 +309,12 @@
       e.preventDefault();
       const id = $("#login-id").val();
       const pw = $("#login-pw").val();
-
-      $.ajax({
+      if (id === "") {
+        alert("아이디를 입력해주세요");
+      } else if (pw === "") {
+        alert("비밀번호를 입력해주세요");
+      }else{
+        $.ajax({
         url: "/login",
         method: "POST",
         data: {
@@ -326,6 +330,9 @@
           location.href = "/main";
         },
       });
+      }
+
+      
     });
 
   </script>
