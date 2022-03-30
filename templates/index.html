@@ -239,7 +239,7 @@
         <label for="login-pw">PW: </label>
         <input type="password" id="login-pw" />
         <input id="submit-btn" type="submit" value="로그인" />
-        <button type="button" onclick = "makepage()">회원가입</button>
+        <button type="button" onclick="makepage()">회원가입</button>
       </form>
 
       <form id="singup-form" class="wrap" type="submit" display="none">
@@ -247,9 +247,9 @@
         <label for="sign-up-id">ID: </label>
         <input id="sign-up-id" />
         <label for="sign-up-pw">PW: </label>
-        <input id="sign-up-pw" />
+        <input type="password" id="sign-up-pw" />
         <label for="sign-up-pw2">PW 확인: </label>
-        <input id="sign-up-pw2" />
+        <input type="password" id="sign-up-pw2" />
         <input id="singup-btn" type="submit" value="회원가입" />
         <button onclick="back()" type="button">뒤로가기</button>
       </form>
@@ -276,7 +276,7 @@
             success: (response) => {
               if (response["result"] === "exist") {
                 alert(response["msg"]);
-              } else if (response["result"] === "succes") {
+              } else if (response["result"] === "success") {
                 alert(response["msg"]);
                 location.href = "/";
               }

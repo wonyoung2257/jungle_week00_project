@@ -45,7 +45,7 @@ def singup():
   if request.method =='POST':
     id = request.form.get('id')
     pw = request.form.get('pw')
-    if(db.users.find_one({'userId': id})): #아이디 이미 있을 때
+    if(db.users.find_one({'id': id})): #아이디 이미 있을 때
       return jsonify({'result': 'exist', 'msg':'아이디가 이미 있음'})
     
     pw_hash = bcrypt.generate_password_hash(pw)
@@ -54,7 +54,7 @@ def singup():
     return jsonify({'result': 'success', 'msg': '회원가입 되었습니다.'})
     
   else:
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 @app.route('/login', methods = ['POST'])
 def login():
