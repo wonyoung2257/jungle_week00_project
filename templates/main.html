@@ -274,7 +274,6 @@
           <div class="game_input_container"></div>
         </div>
         <script>
-          let answer_count = 6;
           let data = JSON.parse(`{{ answers | safe }}`);
           let answer = data.answer;
           //모달 창 화면 설정
@@ -388,14 +387,15 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
-            answer_count -= 1;
             let user_id = localStorage.getItem("userID");
+
+            //성공 실패 판별
             if (green.length == answer.length) {
               success(user_id);
               return;
             }
 
-            if (answer_count == 0) {
+            if (select === "input_wrap_5") {
               fail(user_id);
               return;
             }
@@ -406,7 +406,6 @@
           game_inputs.addEventListener("keypress", (e) => {
             if (e.key == "Enter") {
               check_answer(e.target.parentNode.id);
-              console.log(answer_count);
             }
           });
         </script>
