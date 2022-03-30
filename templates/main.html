@@ -30,7 +30,6 @@
         }
       }
     </style>
-    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -91,7 +90,9 @@
 <h6 class="font-medium leading-tight text-base text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h6>
       <div class="flex">
         <div class="game grow-[2] flex-auto">
-          <h2 class="game_header text-2xl font-bold">이름을 맞추세요!!</h2>
+          <h2 class="game_header text-2xl font-bold">
+            이름을 맞추세요!!(성 제외)
+          </h2>
           <div class="game_input_container"></div>
         </div>
         <div class="ranking grow-[1] flex-auto list-none" id="ranking">
@@ -99,122 +100,149 @@
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
-                    <section class="mb-20 text-gray-700" style="width: 500px;">
-                      <div class="text-center md:max-w-xl lg:max-w-3xl mx-auto">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-800">명예의 전당</h3>
+                  <section class="mb-20 text-gray-700" style="width: 500px">
+                    <div class="text-center md:max-w-xl lg:max-w-3xl mx-auto">
+                      <h3 class="text-3xl font-bold mb-6 text-gray-800">
+                        명예의 전당
+                      </h3>
+                    </div>
+
+                    <div
+                      class="grid md:grid-cols-3 gap-6 lg:gap-12 text-center"
+                    >
+                      {% for rank in ranking %} {% if loop.index == 1 %}
+                      <div class="mb-12 md:mb-0">
+                        <div class="flex justify-center mb-6">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2583/2583381.png"
+                            class="rounded-full shadow-lg w-32"
+                          />
+                        </div>
+                        <h5 class="text-xl font-semibold mb-4">
+                          {{ rank.id }}
+                        </h5>
+                        <h6 class="font-semibold text-blue-600 mb-4"></h6>
+                        <p class="mb-4">
+                          성공 - {{ rank.cnt_success }} <br />
+                          실패 - {{ rank.cnt_fail }} <br />
+                          성공률 - {{ rank.cnt_rate }}%
+                        </p>
                       </div>
-                      
-                      <div class="grid md:grid-cols-3 gap-6 lg:gap-12 text-center">
-                        {% for rank in ranking %}
-                          {% if loop.index == 1 %}
-                          <div class="mb-12 md:mb-0">
-                            <div class="flex justify-center mb-6">
-                              <img
-                                src="https://cdn-icons-png.flaticon.com/512/2583/2583381.png"
-                                class="rounded-full shadow-lg w-32"
-                              />
-                            </div>
-                            <h5 class="text-xl font-semibold mb-4">{{ rank.id }}</h5>
-                            <h6 class="font-semibold text-blue-600 mb-4"></h6>
-                            <p class="mb-4">
-                              
-                              성공 - {{ rank.cnt_success }} <br>
-                              실패 - {{ rank.cnt_fail }} <br>
-                              성공률 - {{ rank.cnt_rate }}%
-                            </p>
-                          </div>
-                          {% elif loop.index == 2 %}
-                          <div class="mb-12 md:mb-0">
-                            <div class="flex justify-center mb-6">
-                              <img
-                              src="https://cdn-icons-png.flaticon.com/512/2583/2583350.png"
-                              class="rounded-full shadow-lg w-32"
-                              />
-                            </div>
-                            <h5 class="text-xl font-semibold mb-4">{{ rank.id }}</h5>
-                            <h6 class="font-semibold text-blue-600 mb-4"></h6>
-                            <p class="mb-4">
-                              
-                              성공 - {{ rank.cnt_success }} <br>
-                              실패 - {{ rank.cnt_fail }} <br>
-                              성공률 - {{ rank.cnt_rate }}%
-                            </p>
-                          </div>
-                          {% elif loop.index == 3 %}
-                          <div class="mb-12 md:mb-0">
-                            <div class="flex justify-center mb-6">
-                              <img
-                              src="https://cdn-icons-png.flaticon.com/512/2583/2583448.png"
-                              class="rounded-full shadow-lg w-32"
-                              />
-                            </div>
-                            <h5 class="text-xl font-semibold mb-4">{{ rank.id }}</h5>
-                            <h6 class="font-semibold text-blue-600 mb-4"></h6>
-                            <p class="mb-4">
-                              
-                              성공 - {{ rank.cnt_success }} <br>
-                              실패 - {{ rank.cnt_fail }} <br>
-                              성공률 - {{ rank.cnt_rate }}%
-                            </p>
-                          </div>
-                        {% endif %}
-                        {% endfor %}
+                      {% elif loop.index == 2 %}
+                      <div class="mb-12 md:mb-0">
+                        <div class="flex justify-center mb-6">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2583/2583350.png"
+                            class="rounded-full shadow-lg w-32"
+                          />
+                        </div>
+                        <h5 class="text-xl font-semibold mb-4">
+                          {{ rank.id }}
+                        </h5>
+                        <h6 class="font-semibold text-blue-600 mb-4"></h6>
+                        <p class="mb-4">
+                          성공 - {{ rank.cnt_success }} <br />
+                          실패 - {{ rank.cnt_fail }} <br />
+                          성공률 - {{ rank.cnt_rate }}%
+                        </p>
                       </div>
-                    </section>
-                    
-                    <div class="flex flex-col">
-                      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                          <div class="overflow-hidden">
-                            <table class="min-w-full">
-                              <thead class="bg-white border-b">
-                                <tr>
-                                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    #
-                                  </th>
-                                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    이름
-                                  </th>
-                                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    성공
-                                  </th>
-                                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    실패
-                                  </th>
-                                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    성공률
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {% for rank in ranking %}
-                                {% if loop.index > 3 %}
-                                <tr class="bg-gray-100 border-b">
-                                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {{loop.index}}
-                                  </td>
-                                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {{rank.id}}
-                                  </td>
-                                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {{rank.cnt_success}}
-                                  </td>
-                                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {{rank.cnt_fail}}
-                                  </td>
-                                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {{rank.cnt_rate}}%
-                                  </td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                
-                              </tbody>
-                            </table>
-                          </div>
+                      {% elif loop.index == 3 %}
+                      <div class="mb-12 md:mb-0">
+                        <div class="flex justify-center mb-6">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2583/2583448.png"
+                            class="rounded-full shadow-lg w-32"
+                          />
+                        </div>
+                        <h5 class="text-xl font-semibold mb-4">
+                          {{ rank.id }}
+                        </h5>
+                        <h6 class="font-semibold text-blue-600 mb-4"></h6>
+                        <p class="mb-4">
+                          성공 - {{ rank.cnt_success }} <br />
+                          실패 - {{ rank.cnt_fail }} <br />
+                          성공률 - {{ rank.cnt_rate }}%
+                        </p>
+                      </div>
+                      {% endif %} {% endfor %}
+                    </div>
+                  </section>
+
+                  <div class="flex flex-col">
+                    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden">
+                          <table class="min-w-full">
+                            <thead class="bg-white border-b">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                  #
+                                </th>
+                                <th
+                                  scope="col"
+                                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                  이름
+                                </th>
+                                <th
+                                  scope="col"
+                                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                  성공
+                                </th>
+                                <th
+                                  scope="col"
+                                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                  실패
+                                </th>
+                                <th
+                                  scope="col"
+                                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                  성공률
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for rank in ranking %} {% if loop.index > 3 %}
+                              <tr class="bg-gray-100 border-b">
+                                <td
+                                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                >
+                                  {{loop.index}}
+                                </td>
+                                <td
+                                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                >
+                                  {{rank.id}}
+                                </td>
+                                <td
+                                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                >
+                                  {{rank.cnt_success}}
+                                </td>
+                                <td
+                                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                >
+                                  {{rank.cnt_fail}}
+                                </td>
+                                <td
+                                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                >
+                                  {{rank.cnt_rate}}%
+                                </td>
+                              </tr>
+                              {% endif %} {% endfor %}
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,14 +309,20 @@
         </div>
 
         <script>
+          //DB에서 이름, 사진, 문제 받아옴
           let data = JSON.parse(`{{ answers | safe }}`);
-          let answer = data.answer;
-          //모달 창 화면 설정
-          document.querySelector("#success_img").src = data.img;
-          document.querySelector("#fail_img").src = data.img;
-          document.querySelector("#success_span").innerHTML = data.name;
-          document.querySelector("#fail_span").innerHTML = data.name;
-          //
+          // 로컬 스토리지에 값이 없다면 입력
+
+          if (localStorage.getItem("answer") === null) {
+            localStorage.setItem("answer", data.answer);
+            localStorage.setItem("img", data.img);
+            localStorage.setItem("name", data.name);
+          }
+          if (localStorage.getItem("guesses") === null) {
+            localStorage.setItem("guesses", JSON.stringify([]));
+          }
+
+          let answer = localStorage.getItem("answer");
 
           // input 창 focus 이동 함수
           const onKeyDownMoveEvent = (e) => {
@@ -298,6 +332,7 @@
                 input_el.value.length !== input_el.maxLength &&
                 input_el.previousSibling
               ) {
+                console.log(input_el.previousSibling);
                 input_el.previousSibling.focus();
               }
               return;
@@ -305,7 +340,6 @@
 
             if (input_el.value.trim() !== "" && input_el.nextSibling) {
               let first_word = getConstantVowel(input_el.value.trim());
-              console.log(first_word);
               if (first_word) {
                 input_el.value = first_word;
               }
@@ -427,29 +461,106 @@
 
           create_game_input(answer);
 
+          // 사용자가 입력한 guesses가 있다면 input창에 넣어서 활성화 시킨다.
+          const fill_input = (guesses) => {
+            let game_input = document.querySelector(
+              ".game_input_container"
+            ).children;
+            console.log(game_input[0].children[0].value);
+
+            // console.log(
+            //   document.querySelector(`#${game_input}`).children[0].value
+            // );
+            guesses.map((user_input, index) => {
+              user_input = user_input.split(",");
+              let green = [];
+              console.log(green);
+              let yellow = [];
+              let gray = [];
+              let temp_answer = answer.split("");
+              console.log(temp_answer);
+              console.log(user_input);
+              // 게임 로직
+              for (let i = 0; i < answer.length; i++) {
+                console.log(user_input[i]);
+                if (user_input[i] === answer[i]) {
+                  temp_answer[i] = "";
+                  green.push(i);
+                }
+                game_input[index].children[i].value.readOnly = true;
+              }
+              for (let i = 0; i < answer.length; i++) {
+                if (temp_answer.includes(user_input[i]) && !green.includes(i)) {
+                  temp_answer[temp_answer.indexOf(user_input[i])] = "";
+                  yellow.push(i);
+                } else if (!green.includes(i) && !yellow.includes(i)) {
+                  gray.push(i);
+                }
+                game_input[index].children[i].readOnly = true;
+              }
+              for (let i = 0; i < user_input.length; i++) {
+                if (index + 1 < 6) {
+                  game_input[index + 1].children[i].disabled = false;
+                }
+              }
+
+              green.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#22C55E";
+                game_input[index].children[i].style.color = "white";
+              });
+              yellow.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#EAB308";
+                game_input[index].children[i].style.color = "white";
+              });
+              gray.map((i) => {
+                game_input[index].children[i].value = user_input[i];
+                game_input[index].children[i].style.backgroundColor = "#94A3B8";
+                game_input[index].children[i].style.color = "white";
+              });
+            });
+          };
+
+          fill_input(JSON.parse(localStorage.getItem("guesses")));
           //input의 정답값이 맞는지 확인하는 함수
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
             let next_input = null;
+            // 사용자가 입력한 input의 다음 input값을 가져온다.
+            // 비활성화 되어 있는 input의 값을 활성화 시키기 위한 코드
             if (document.querySelector(`#${select}`).nextSibling != null) {
               next_input = document.querySelector(`#${select}`).nextSibling
                 .childNodes;
             }
 
-            // input 값 유효성 검사하기
+            // input 값 입력하지 않은 칸이 있는지 검사하기
             for (let i = 0; i < user_input.length; i++) {
               if (user_input[i].value.trim() === "") {
                 alert("빈칸을 채워주세요");
                 return;
               }
             }
+            //localStorage guesses 배열에 사용자 입력저장
+            let guesses = [];
+            for (let i = 0; i < user_input.length; i++) {
+              guesses.push(user_input[i].value);
+            }
+            if (guesses.length > 0) {
+              let temp = JSON.parse(localStorage.getItem("guesses"));
+              temp.push(guesses.join());
+              localStorage.setItem("guesses", JSON.stringify(temp));
+            }
+
+            // 다음 input 칸이 있다면 활성화
             if (next_input !== null) {
               for (let i = 0; i < next_input.length; i++) {
                 next_input[i].disabled = false;
               }
             }
 
+            // input 창 정답 검사 로직 칸에 색칠함
             let green = [];
             let yellow = [];
             let gray = [];
@@ -487,15 +598,35 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
-            let user_id = localStorage.getItem("userID");
+            if (select !== "input_wrap_5") {
+              next_input[0].focus();
+            }
 
             //성공 실패 판별
+            let user_id = localStorage.getItem("userID");
             if (green.length == answer.length) {
+              localStorage.removeItem("answer");
+              localStorage.removeItem("guesses");
+
+              document.querySelector("#success_img").src =
+                localStorage.getItem("img");
+              document.querySelector("#success_span").innerHTML =
+                localStorage.getItem("name");
+
               success(user_id);
+
               return;
             }
 
             if (select === "input_wrap_5") {
+              localStorage.removeItem("answer");
+              localStorage.removeItem("guesses");
+
+              document.querySelector("#fail_img").src =
+                localStorage.getItem("img");
+              document.querySelector("#fail_span").innerHTML =
+                localStorage.getItem("name");
+
               fail(user_id);
               return;
             }
