@@ -25,16 +25,11 @@ client = MongoClient('mongodb+srv://test:test@cluster0.b9rhp.mongodb.net/myFirst
 db = client.junglewordle
 import random
 # data = {
-#   'name': '허원영',
-#   'answer': 'ㅇㅜㅓㄴㅇㅕㅇ',
-#   'img': 'https://ca.slack-edge.com/T01FZU4LB4Y-U038VG9V6M9-2ec7f2a14209-512'}
-# data = {
-#   'id': '아이유',
-#   'pwd': '1234',
-#   'cnt_success': '8',
-#   'cnt_fail': '5'
-# }
-# db.users.insert_one(data)
+#   'name': '정의성',
+#   'answer': 'ㅇㅢㅅㅓㅇ',
+#   'img': 'https://ca.slack-edge.com/T01FZU4LB4Y-U038XSHEKSQ-5b86acdaefe6-512'}
+
+# db.answers.insert_one(data)
 
 @app.route('/')
 def index():
@@ -95,7 +90,7 @@ def home():
         'cnt_rate': round(data['cnt_success'] / (data['cnt_success'] + cnt_fail) * 100)
       })
     answers_list = list(db.answers.find({}))
-    random_num = random.randrange(0,3)
+    random_num = random.randrange(0,len(answers_list))
     answers = {
       'name': answers_list[random_num]['name'],
       'answer': answers_list[random_num]['answer'],
