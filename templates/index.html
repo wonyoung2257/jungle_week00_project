@@ -1,312 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>정글 워들 | B 2조</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              clifford: "#da373d",
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정글 워들 | B 2조</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
           },
         },
-      };
-    </script>
-    <style type="text/tailwindcss">
-      @layer utilities {
+      },
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
         .content-auto {
           content-visibility: auto;
         }
       }
     </style>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- 구글폰트 -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
-      rel="stylesheet"
-    />
-    <!-- style -->
-    <style type="text/css">
-      * {
-        font-family: "Stylish", sans-serif;
-      }
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!-- 구글폰트 -->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet" />
+  <!-- style -->
+  <style type="text/css">
+    * {
+      font-family: "Stylish", sans-serif;
+    }
 
-      .wrap {
-        width: 900px;
-        margin: auto;
-      }
+    .wrap {
+      width: 900px;
+      margin: auto;
+    }
 
-      .comment {
-        color: blue;
-        font-weight: bold;
-      }
+    .comment {
+      color: blue;
+      font-weight: bold;
+    }
 
-      #post-box {
-        width: 500px;
-        /* margin: 20px ; */
-        /* padding: 50px; */
-        /* border: black solid; */
-        /* border-radius: 5px; */
-      }
+    #post-box {
+      width: 500px;
+      /* margin: 20px ; */
+      /* padding: 50px; */
+      /* border: black solid; */
+      /* border-radius: 5px; */
+    }
 
-      #login-box {
-        width: 500px;
-        /* margin: 20px ; */
-        /* padding: 50px; */
-        /* border: black solid; */
-        /* border-radius: 5px; */
-      }
+    #login-box {
+      width: 500px;
+      /* margin: 20px ; */
+      /* padding: 50px; */
+      /* border: black solid; */
+      /* border-radius: 5px; */
+    }
 
-      #singup-form {
-        display: none;
-        /* margin: 20px ; */
-        /* padding: 50px; */
-        /* border: black solid; */
-        /* border-radius: 5px; */
-      }
+    #singup-form {
+      display: none;
+      /* margin: 20px ; */
+      /* padding: 50px; */
+      /* border: black solid; */
+      /* border-radius: 5px; */
+    }
 
-      .edit-box {
-        width: 250px;
-        display: none;
-      }
-    </style>
-    <script>
-      function makepage() {
-        $("#singup-form").show();
-        $("#login-form").hide();
-        $("#rule-box").hide();
-      }
+    .text-box {
+      width: 100px;
+    }
 
-      function back() {
-        $("#singup-form").hide();
-        $("#login-form").show();
-        $("#rule-box").show();
-      }
-    </script>
-  </head>
+    
 
-  <body>
-    <div class="wrap">
-      <div class="jumbotron" id="rule-box">
+    .edit-box {
+      width: 250px;
+      display: none;
+    }
+  </style>
+  <script>
+    function makepage() {
+      $("#singup-form").show();
+      $("#login-form").hide();
+      $("#rule-box").hide();
+    }
+
+    function back() {
+      $("#singup-form").hide();
+      $("#login-form").show();
+      $("#rule-box").show();
+    }
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="jumbotron" id="rule-box">
+      <div class="text-center">
+        <botton class="btn btn-primary">
+          <h1 class="display-4">How to play "Jungle wordle"</h1>
+        </botton>
+      </div>
+      <p></p>
+      <div>
         <div class="text-center">
-          <botton class="btn btn-primary">
-            <h1 class="display-4">How to play "Jungle wordle"</h1>
-          </botton>
-        </div>
-        <p></p>
-        <div>
-          <div class="text-center">
-            <h3
-              class="text-lg leading-6 font-medium text-gray-900"
-              id="headlessui-dialog-title-6"
-            >
-              게임 방법
-            </h3>
-            <div class="mt-2">
-              <p class="text-sm text-gray-500">
-                B조 동료의 이름을 6번 만에 맞춰보세요.
-              </p>
-              <p class="text-sm text-gray-500">
-                시도의 결과는 타일의 색 변화로 나타납니다.
-              </p>
-              <p class="text-sm text-gray-500">
-                성을 제외한 이름만 맞추면 됩니다.
-              </p>
-              <div class="flex justify-center mb-1 mt-4">
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-green-500 text-white border-green-500 cell-animation"
-                >
-                  ㅎ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅏ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㄴ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅡ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㄹ
-                </div>
+          <h3 class="text-lg leading-6 font-medium text-gray-900" id="headlessui-dialog-title-6">
+            게임 방법
+          </h3>
+          <div class="mt-2">
+            <p class="text-sm text-gray-500">
+              B조 동료의 이름을 6번 만에 맞춰보세요.
+            </p>
+            <p class="text-sm text-gray-500">
+              시도의 결과는 타일의 색 변화로 나타납니다.
+            </p>
+            <p class="text-sm text-gray-500">
+              성을 제외한 이름만 맞추면 됩니다.
+            </p>
+            <div class="flex justify-center mb-1 mt-4">
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-green-500 text-white border-green-500 cell-animation">
+                ㅎ
               </div>
-              <p class="text-sm text-gray-500">
-                ㅎ는 '단어'에 포함되어 있으며, 제 위치에 있습니다.
-              </p>
-              <div class="flex justify-center mb-1 mt-4">
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅍ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅣ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-yellow-500 text-white border-yellow-500 cell-animation"
-                >
-                  ㄹ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㄱ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅣ
-                </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅏ
               </div>
-              <p class="text-sm text-gray-500">
-                ㄹ은 단어에는 포함되나, 다른 위치에 있습니다.
-              </p>
-              <div class="flex justify-center mb-1 mt-4">
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅂ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅗ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㄹ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-slate-400 text-white border-slate-400 cell-animation"
-                >
-                  ㅡ
-                </div>
-                <div
-                  class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation"
-                >
-                  ㅁ
-                </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㄴ
               </div>
-              <p class="text-sm text-gray-500">
-                ㅡ는 단어에도 포함되지 않고, 어떤 위치에도 있지 않습니다.
-              </p>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅡ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㄹ
+              </div>
             </div>
+            <p class="text-sm text-gray-500">
+              ㅎ는 '단어'에 포함되어 있으며, 제 위치에 있습니다.
+            </p>
+            <div class="flex justify-center mb-1 mt-4">
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅍ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅣ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-yellow-500 text-white border-yellow-500 cell-animation">
+                ㄹ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㄱ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅣ
+              </div>
+            </div>
+            <p class="text-sm text-gray-500">
+              ㄹ은 단어에는 포함되나, 다른 위치에 있습니다.
+            </p>
+            <div class="flex justify-center mb-1 mt-4">
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅂ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅗ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㄹ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-slate-400 text-white border-slate-400 cell-animation">
+                ㅡ
+              </div>
+              <div
+                class="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-white border-slate-200 border-black cell-animation">
+                ㅁ
+              </div>
+            </div>
+            <p class="text-sm text-gray-500">
+              ㅡ는 단어에도 포함되지 않고, 어떤 위치에도 있지 않습니다.
+            </p>
           </div>
         </div>
       </div>
-
-      <form id="login-form" class="wrap" type="submit">
-        <h1>로그인</h1>
-        <label for="login-id">ID: </label>
-        <input type="text" id="login-id" />
-        <label for="login-pw">PW: </label>
-        <input type="password" id="login-pw" />
-        <input id="submit-btn" type="submit" value="로그인" />
-        <button type="button" onclick="makepage()">회원가입</button>
-      </form>
-
-      <form id="singup-form" class="wrap" type="submit" display="none">
-        <h1>회원가입</h1>
-        <label for="sign-up-id">ID: </label>
-        <input id="sign-up-id" />
-        <label for="sign-up-pw">PW: </label>
-        <input type="password" id="sign-up-pw" />
-        <label for="sign-up-pw2">PW 확인: </label>
-        <input type="password" id="sign-up-pw2" />
-        <input id="singup-btn" type="submit" value="회원가입" />
-        <button onclick="back()" type="button">뒤로가기</button>
-      </form>
     </div>
 
-    <script>
-      $("#singup-form").on("submit", (e) => {
-        e.preventDefault();
-        const id = $("#sign-up-id").val().trim();
-        const pw = $("#sign-up-pw").val().trim();
-        const pw2 = $("#sign-up-pw2").val().trim();
-        console.log("test");
-        if (id === "") {
-          alert("아이디를 입력해주세요");
-        } else if (pw === "" || pw2 === "") {
-          alert("비밀번호를 입력해주세요");
-        } else if (pw !== pw2) {
-          alert("비밀번호가 일치하지 않습니다");
-        } else {
-          $.ajax({
-            url: "/singup",
-            data: { id, pw, pw2 },
-            method: "POST",
-            success: (response) => {
-              if (response["result"] === "exist") {
-                alert(response["msg"]);
-              } else if (response["result"] === "success") {
-                alert(response["msg"]);
-                location.href = "/";
-              }
-            },
-          });
-        }
-      });
+    <form id="login-form" class="p-2 bg-white felx px-2 py-1 text-center" type="submit">
+      <div>
+        <label for="login-id">ID: </label>
+        <input type="text"
+          class=" border-solid border-2 border-gray bg-white-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
+          id="login-id" />
+      </div>
+      <div>
+        <label id="text-box" for="login-pw">PW: </label>
+        <input type="password"
+          class="border-solid border-2 border-gray bg-white-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
+          id="login-pw" />
+      </div>
+      <div>
+        <input id="submit-btn"
+          class="border-solid border-2 border-sky-500 bg-blue-500 hover:bg-sky-500 text-white font-white py-1 px-2 rounded"
+          type="submit" value="로그인" />
+        <button type="button"
+          class="border-solid border-2 border-sky-500 bg-blue-500 hover:bg-sky-500 text-white font-white py-1 px-2 rounded"
+          onclick="makepage()">회원가입</button>
+      </div>
+    </form>
 
-      $("#login-form").on("submit", (e) => {
-        e.preventDefault();
-        const id = $("#login-id").val();
-        const pw = $("#login-pw").val();
+    <form id="singup-form" class="p-2 bg-white felx px-2 py-1 text-center" type="submit" display="none">
+      <div class="display-4">
+        <h1>회원가입</h1>
+      </div>
+      <div>
+        <label id="text-box" for="sign-up-id">ID: </label>
+        <input id="sign-up-id"
+          class="border-solid border-2 border-gray bg-white-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded" />
+      </div>
+      <div>
+        <label for="sign-up-pw">PW: </label>
+        <input type="password"
+          class="border-solid border-2 border-gray bg-white-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
+          id="sign-up-pw" />
+      </div>
+      <div>
+        <label for="sign-up-pw2">PW 확인: </label>
+        <input type="password" id="sign-up-pw2"
+          class="border-solid border-2 border-gray bg-white-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded" />
+      </div>
+      <div class ="flex-warp">
+      <input id="singup-btn" type="submit"
+        class="border-solid border-2 border-sky-500 bg-blue-500 hover:bg-sky-500 text-white font-white py-1 px-2 rounded"
+        value="가입요청" />
+      <button onclick="back()"
+        class="border-solid border-2 border-sky-500 bg-blue-500 hover:bg-sky-500 text-white font-white py-1 px-2 rounded"
+        type="button">뒤로가기</button>
+      </div>
+      </form>
+  </div>
 
+  <script>
+    $("#singup-form").on("submit", (e) => {
+      e.preventDefault();
+      const id = $("#sign-up-id").val().trim();
+      const pw = $("#sign-up-pw").val().trim();
+      const pw2 = $("#sign-up-pw2").val().trim();
+      console.log("test");
+      if (id === "") {
+        alert("아이디를 입력해주세요");
+      } else if (pw === "" || pw2 === "") {
+        alert("비밀번호를 입력해주세요");
+      } else if (pw !== pw2) {
+        alert("비밀번호가 일치하지 않습니다");
+      } else {
         $.ajax({
-          url: "/login",
+          url: "/singup",
+          data: { id, pw, pw2 },
           method: "POST",
-          data: {
-            id,
-            pw,
-          },
           success: (response) => {
-            if (response["result"] === "fail") {
+            if (response["result"] === "exist") {
               alert(response["msg"]);
-              return;
+            } else if (response["result"] === "success") {
+              alert(response["msg"]);
+              location.href = "/";
             }
-            localStorage.setItem("userID", id);
-            location.href = "/main";
           },
         });
+      }
+    });
+
+    $("#login-form").on("submit", (e) => {
+      e.preventDefault();
+      const id = $("#login-id").val();
+      const pw = $("#login-pw").val();
+
+      $.ajax({
+        url: "/login",
+        method: "POST",
+        data: {
+          id,
+          pw,
+        },
+        success: (response) => {
+          if (response["result"] === "fail") {
+            alert(response["msg"]);
+            return;
+          }
+          localStorage.setItem("userID", id);
+          location.href = "/main";
+        },
       });
-    </script>
-  </body>
+    });
+
+  </script>
+</body>
+
 </html>
