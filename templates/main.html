@@ -89,9 +89,13 @@
   </head>
   <body>
     <div class="wrapper">
-      <header class="header text-xl grow font-bold">Jungle Wordle</header>
-      <div class="main_wrapper">
-        <div class="ranking list-none" id="ranking">
+      <header class="header text-2xl grow font-bold">Jungle Wordle</header>
+      <div class="flex">
+        <div class="game grow-[2] flex-auto">
+          <h2 class="game_header text-2xl font-bold">이름을 맞추세요!!</h2>
+          <div class="game_input_container"></div>
+        </div>
+        <div class="ranking grow-[1] flex-auto list-none" id="ranking">
           <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -269,10 +273,6 @@
           <!--End Modal-->
         </div>
 
-        <div class="game">
-          <h2 class="game_header text-xl font-bold">이름을 맞추세요!!</h2>
-          <div class="game_input_container"></div>
-        </div>
         <script>
           let data = JSON.parse(`{{ answers | safe }}`);
           let answer = data.answer;

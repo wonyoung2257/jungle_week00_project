@@ -1,6 +1,6 @@
 .wrapper {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
   margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
@@ -21,7 +21,6 @@
 } */
 .game {
   padding: 2rem;
-  flex-grow: 3;
   background-color: white;
   box-sizing: border-box;
   text-align: center;
@@ -30,11 +29,11 @@
   margin-bottom: 20px;
 }
 .game_input {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   font-size: 25px;
   font-weight: 600;
-  margin-left: 10px;
+  margin-left: 20px;
   border: 2px solid rgba(59, 130, 246, 0.5);
   border-radius: 5px;
   text-align: center;
@@ -68,6 +67,7 @@
   width: 100%;
   border: 1px solid #444444;
 }
-th, td {
+th,
+td {
   border: 1px solid #444444;
 }
