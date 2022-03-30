@@ -390,6 +390,7 @@
             let fn = parseInt(uni / 588);
             let sn = parseInt((uni - fn * 588) / 28);
             let tn = parseInt(uni % 28);
+
             if (f[fn] === undefined) {
               return null;
             } else return f[fn];
