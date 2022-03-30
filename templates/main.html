@@ -86,7 +86,9 @@
       </div>
       <div class="flex">
         <div class="game grow-[2] flex-auto">
-          <h2 class="game_header text-2xl font-bold">이름을 맞추세요!!(성x)</h2>
+          <h2 class="game_header text-2xl font-bold">
+            이름을 맞추세요!!(성 제외)
+          </h2>
           <div class="game_input_container"></div>
         </div>
         <div class="ranking grow-[1] flex-auto list-none" id="ranking">
@@ -309,6 +311,8 @@
 
           if (localStorage.getItem("answer") === null) {
             localStorage.setItem("answer", data.answer);
+            localStorage.setItem("img", data.img);
+            localStorage.setItem("name", data.name);
           }
           if (localStorage.getItem("guesses") === null) {
             localStorage.setItem("guesses", JSON.stringify([]));
@@ -324,10 +328,6 @@
           // localStorage.setItem("guesses", JSON.stringify(temp));
           //모달 창 화면 설정
 
-          document.querySelector("#success_img").src = data.img;
-          document.querySelector("#fail_img").src = data.img;
-          document.querySelector("#success_span").innerHTML = data.name;
-          document.querySelector("#fail_span").innerHTML = data.name;
           //
 
           // input 창 focus 이동 함수
@@ -503,7 +503,7 @@
                 }
                 game_input[index].children[i].readOnly = true;
               }
-              for (let i = 0; i < 5; i++) {
+              for (let i = 0; i < user_input.length; i++) {
                 game_input[index + 1].children[i].disabled = false;
                 // console.log(game_input[index+1].children[i].disabled=false);
               }
@@ -607,13 +607,27 @@
             let user_id = localStorage.getItem("userID");
             if (green.length == answer.length) {
               localStorage.removeItem("answer");
-              localStorage.removeItem("guesses") / success(user_id);
+              localStorage.removeItem("guesses");
+
+              document.querySelector("#success_img").src =
+                localStorage.getItem("img");
+              document.querySelector("#success_span").innerHTML =
+                localStorage.getItem("name");
+
+              success(user_id);
+
               return;
             }
 
             if (select === "input_wrap_5") {
               localStorage.removeItem("answer");
               localStorage.removeItem("guesses");
+
+              document.querySelector("#fail_img").src =
+                localStorage.getItem("img");
+              document.querySelector("#fail_span").innerHTML =
+                localStorage.getItem("name");
+
               fail(user_id);
               return;
             }
