@@ -81,9 +81,13 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="text-center bg-gray-50 text-blue-800 py-0 px-6">
+      <!-- <div class="text-center bg-gray-50 text-blue-800 py-0 px-6">
+        
         <h1 class="text-3xl font-bold mt-0 mb-6">Jungle Wordle</h1>
-      </div>
+      </div> -->
+<h3 class="font-medium leading-tight text-4xl text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h3>
+<h5 class="font-medium leading-tight text-2xl text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h5>
+<h6 class="font-medium leading-tight text-base text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h6>
       <div class="flex">
         <div class="game grow-[2] flex-auto">
           <h2 class="game_header text-2xl font-bold">
@@ -255,7 +259,7 @@
               <p style="text-align: center; line-height: 1.5">
                 <img id="success_img" src="" alt="" />
                 <br />
-                <span class="font-weight-bold text-lg-center"
+                <span id="suc-egg" class="font-weight-bold text-lg-center"
                   >정답은 <span id="success_span">허원영</span>입니다.</span
                 >
                 <br />
@@ -288,7 +292,11 @@
                   alt=""
                 />
                 <br />
+<<<<<<< HEAD
                 <span id="egg" class="font-weight-bold text-lg-center"
+=======
+                <span id="egg" class="font-weight-bold text-lg-center" 
+>>>>>>> ec41ebfdf4f3ddc03bc42001c72674cf71d6e675
                   >정답은 <span id="fail_span">허원영</span>입니다.</span
                 >
                 <br />
@@ -609,11 +617,24 @@
               document.querySelector("#success_span").innerHTML =
                 localStorage.getItem("name");
 
+              if (localStorage.getItem("name") == "장병규")
+                document.querySelector("#suc-egg").innerHTML = "정답은 장병규입니다. 의장님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "류석영")
+                document.querySelector("#suc-egg").innerHTML = "정답은 류석영입니다. 교수님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "정주원")
+                document.querySelector("#suc-egg").innerHTML = "정답은 정주원입니다. 코치님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "이범규")
+                document.querySelector("#suc-egg").innerHTML = "정답은 이범규입니다. 대표님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "윤혁")
+                document.querySelector("#suc-egg").innerHTML = "정답은 윤혁입니다. 외자여서 성까지 했습니다.. "
+
+
               success(user_id);
 
               return;
             }
 
+            
             if (select === "input_wrap_5") {
               localStorage.removeItem("answer");
               localStorage.removeItem("guesses");
@@ -622,6 +643,17 @@
                 localStorage.getItem("img");
               document.querySelector("#fail_span").innerHTML =
                 localStorage.getItem("name");
+              
+              if (localStorage.getItem("name") == "장병규")
+                document.querySelector("#egg").innerHTML = "정답은 장병규입니다. 의장님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "류석영")
+                document.querySelector("#egg").innerHTML = "정답은 류석영입니다. 교수님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "정주원")
+                document.querySelector("#egg").innerHTML = "정답은 정주원입니다. 코치님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "이범규")
+                document.querySelector("#egg").innerHTML = "정답은 이범규입니다. 대표님도 B반의 일원입니다. "
+              if (localStorage.getItem("name") == "윤혁")
+                document.querySelector("#egg").innerHTML = "정답은 윤혁입니다. 외자여서 성까지 했습니다.. "
 
               fail(user_id);
               return;
