@@ -81,9 +81,13 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="text-center bg-gray-50 text-blue-800 py-0 px-6">
+      <!-- <div class="text-center bg-gray-50 text-blue-800 py-0 px-6">
+        
         <h1 class="text-3xl font-bold mt-0 mb-6">Jungle Wordle</h1>
-      </div>
+      </div> -->
+<h3 class="font-medium leading-tight text-4xl text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h3>
+<h5 class="font-medium leading-tight text-2xl text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h5>
+<h6 class="font-medium leading-tight text-base text-center">ㅈㅓㅇㄱㅡㄹ     ㅇㅜㅓㄷㅡㄹ</h6>
       <div class="flex">
         <div class="game grow-[2] flex-auto">
           <h2 class="game_header text-2xl font-bold">
@@ -320,16 +324,6 @@
 
           let answer = localStorage.getItem("answer");
 
-          // localStorage.setItem("answer", JSON.stringify(gameState));
-          // localStorage.setItem("guesses", JSON.stringify(["dnjs"]));
-
-          // let temp = JSON.parse(localStorage.getItem("guesses"));
-
-          // localStorage.setItem("guesses", JSON.stringify(temp));
-          //모달 창 화면 설정
-
-          //
-
           // input 창 focus 이동 함수
           const onKeyDownMoveEvent = (e) => {
             const input_el = e.target;
@@ -338,6 +332,7 @@
                 input_el.value.length !== input_el.maxLength &&
                 input_el.previousSibling
               ) {
+                console.log(input_el.previousSibling);
                 input_el.previousSibling.focus();
               }
               return;
@@ -504,8 +499,9 @@
                 game_input[index].children[i].readOnly = true;
               }
               for (let i = 0; i < user_input.length; i++) {
-                game_input[index + 1].children[i].disabled = false;
-                // console.log(game_input[index+1].children[i].disabled=false);
+                if (index + 1 < 6) {
+                  game_input[index + 1].children[i].disabled = false;
+                }
               }
 
               green.map((i) => {
@@ -602,6 +598,9 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
+            if (select !== "input_wrap_5") {
+              next_input[0].focus();
+            }
 
             //성공 실패 판별
             let user_id = localStorage.getItem("userID");
