@@ -194,7 +194,6 @@
                   >정답은 <span id="success_span">허원영</span>입니다.</span
                 >
                 <br />
-                <!-- <br />{{ answers|tojson }} -->
               </p>
               <p><br /></p>
 
@@ -228,7 +227,6 @@
                   >정답은 <span id="fail_span">허원영</span>입니다.</span
                 >
                 <br />
-                <!-- <br />{{ answers }} -->
               </p>
               <button
                 class="pop_bt btn-success rounded h-8"
@@ -246,17 +244,20 @@
           <div class="game_input_container"></div>
         </div>
         <script>
+          let answer_count = 6;
           let data = JSON.parse(`{{ answers | safe }}`);
+          let answer = data.answer;
+          //모달 창 화면 설정
           document.querySelector("#success_img").src = data.img;
           document.querySelector("#fail_img").src = data.img;
           document.querySelector("#success_span").innerHTML = data.name;
           document.querySelector("#fail_span").innerHTML = data.name;
-          let answer = data.answer;
+          //
+
           console.log(answer);
-          // let user_answer = []
-          let answer_count = 6;
+
           //정답 값에 따라 박스 생성 함수
-          const show_game_input = (answer) => {
+          const create_game_input = (answer) => {
             let $game_input_container = document.querySelector(
               ".game_input_container"
             );
@@ -265,13 +266,19 @@
               let template = `<div id="${input_id}" class="input_wrapper">`;
               $game_input_container.innerHTML += template;
               let $input_id = document.querySelector(`#${input_id}`);
-              for (let j = 0; j < answer.length; j++) {
-                $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" />`;
+              if (i == 0) {
+                for (let j = 0; j < answer.length; j++) {
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1"/>`;
+                }
+              } else {
+                for (let j = 0; j < answer.length; j++) {
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" disabled/>`;
+                }
               }
             }
           };
 
-          show_game_input(answer);
+          create_game_input(answer);
 
           let game_inputs = document.querySelector(".game_input_container");
 
@@ -279,6 +286,12 @@
           const check_answer = (select) => {
             // 사용자 input값 받아 오기
             let user_input = document.querySelector(`#${select}`).children;
+            let next_input = document.querySelector(`#${select}`).nextSibling
+              .childNodes;
+
+            for (let i = 0; i < next_input.length; i++) {
+              next_input[i].abled;
+            }
 
             // input 값 유효성 검사하기
             for (let i = 0; i < user_input.length; i++) {
@@ -286,6 +299,10 @@
                 alert("빈칸을 채워주세요");
                 return;
               }
+            }
+
+            for (let i = 0; i < user_input.length; i++) {
+              user_input[i];
             }
 
             let green = [];
