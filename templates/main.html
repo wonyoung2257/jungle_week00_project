@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -86,12 +89,12 @@
       <header class="header text-xl grow font-bold">Jungle Wordle</header>
       <div class="main_wrapper">
         <div class="ranking list-none" id="ranking">
-          랭킹 시스템
           <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
-                  <table class="min-w-full">
+                  JUNGLE WORDLE 명예의 전당
+                  <table class="min-w-full" style="width: 100%; border: 1px solid #444444;">
                     <thead class="border-b">
                       <tr>
                         <th
@@ -104,7 +107,7 @@
                           scope="col"
                           class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                         >
-                          name
+                          이름
                         </th>
                         <th
                           scope="col"
@@ -132,7 +135,19 @@
                         <td
                           class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                         >
-                          {{loop.index}}
+                          {% if loop.index == 1 %}
+                          <img src="https://cdn-icons-png.flaticon.com/512/2583/2583381.png" 
+                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
+                          {% elif loop.index == 2 %}
+                          <img src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975617.png?token=exp=1648604560~hmac=3a143e43c4d3ca1f0f415609de164a10" 
+                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
+                          {% elif loop.index == 3 %}
+                          <img src="https://cdn-icons-png.flaticon.com/512/2583/2583448.png" 
+                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
+                          {% else %}  
+                            {{loop.index}}
+
+                          {% endif %}
                         </td>
                         <td
                           class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
