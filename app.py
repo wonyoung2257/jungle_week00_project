@@ -25,9 +25,9 @@ client = MongoClient('mongodb+srv://test:test@cluster0.b9rhp.mongodb.net/myFirst
 db = client.junglewordle
 import random
 # data = {
-#   'name': '정의성',
-#   'answer': 'ㅇㅢㅅㅓㅇ',
-#   'img': 'https://ca.slack-edge.com/T01FZU4LB4Y-U038XSHEKSQ-5b86acdaefe6-512'}
+#   'name': '류석영',
+#   'answer': 'ㅅㅓㄱㅇㅕㅇ',
+#   'img': 'https://ca.slack-edge.com/T01FZU4LB4Y-U01GRGKDBFA-e83b97b839d9-512'}
 
 # db.answers.insert_one(data)
 

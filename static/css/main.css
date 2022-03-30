@@ -1,6 +1,7 @@
 .wrapper {
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  padding: auto;
   margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
@@ -61,13 +62,4 @@
   padding: 20px;
   border: 1px solid #888;
   width: 260px; /* Could be more or less, depending on screen size */
-}
-
-.table {
-  width: 100%;
-  border: 1px solid #444444;
-}
-th,
-td {
-  border: 1px solid #444444;
 }
