@@ -2,8 +2,11 @@
 <html lang="en">
   <head>
     <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
-    
+    <script
+      src="https://kit.fontawesome.com/def66b134a.js"
+      crossorigin="anonymous"
+    ></script>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -94,7 +97,14 @@
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                   JUNGLE WORDLE 명예의 전당
+<<<<<<< HEAD
                   <table class="min-w-full" style="width: 80%; border: 1px solid #444444;">
+=======
+                  <table
+                    class="min-w-full"
+                    style="width: 100%; border: 1px solid #444444"
+                  >
+>>>>>>> 64d5038b545a64b39476bc19e3a21474c9d88bbf
                     <thead class="border-b">
                       <tr>
                         <th
@@ -136,18 +146,42 @@
                           class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                         >
                           {% if loop.index == 1 %}
-                          <img src="https://cdn-icons-png.flaticon.com/512/2583/2583381.png" 
-                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2583/2583381.png"
+                            style="
+                              width: 30px;
+                              height: 30px;
+                              max-width: 100%;
+                              top: 10px;
+                              position: relative;
+                              right: 9px;
+                            "
+                          />
                           {% elif loop.index == 2 %}
-                          <img src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975617.png?token=exp=1648604560~hmac=3a143e43c4d3ca1f0f415609de164a10" 
-                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
+                          <img
+                            src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975617.png?token=exp=1648604560~hmac=3a143e43c4d3ca1f0f415609de164a10"
+                            style="
+                              width: 30px;
+                              height: 30px;
+                              max-width: 100%;
+                              top: 10px;
+                              position: relative;
+                              right: 9px;
+                            "
+                          />
                           {% elif loop.index == 3 %}
-                          <img src="https://cdn-icons-png.flaticon.com/512/2583/2583448.png" 
-                            style= "width:30px; height:30px; max-width: 100%; top: 10px; position: relative; right: 9px">
-                          {% else %}  
-                            {{loop.index}}
-
-                          {% endif %}
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2583/2583448.png"
+                            style="
+                              width: 30px;
+                              height: 30px;
+                              max-width: 100%;
+                              top: 10px;
+                              position: relative;
+                              right: 9px;
+                            "
+                          />
+                          {% else %} {{loop.index}} {% endif %}
                         </td>
                         <td
                           class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
@@ -244,7 +278,6 @@
           <div class="game_input_container"></div>
         </div>
         <script>
-          let answer_count = 6;
           let data = JSON.parse(`{{ answers | safe }}`);
           let answer = data.answer;
           //모달 창 화면 설정
@@ -254,12 +287,9 @@
           document.querySelector("#fail_span").innerHTML = data.name;
           //
 
-          console.log(answer);
-
           // input 창 focus 이동 함수
           const onKeyDownMoveEvent = (e) => {
             const input_el = e.target;
-            console.log(input_el.value.length);
             if (e.keyCode === 8) {
               if (
                 input_el.value.length !== input_el.maxLength &&
@@ -269,13 +299,105 @@
               }
               return;
             }
-            if (
-              input_el.value.length === input_el.maxLength &&
-              input_el.nextSibling
-            ) {
+
+            if (input_el.value.trim() !== "" && input_el.nextSibling) {
+              let first_word = getConstantVowel(input_el.value.trim());
+              console.log(first_word);
+              if (first_word) {
+                input_el.value = first_word;
+              }
               input_el.nextSibling.focus();
             }
           };
+          // 자음 모음 분리
+          function getConstantVowel(kor) {
+            const f = [
+              "ㄱ",
+              "ㄲ",
+              "ㄴ",
+              "ㄷ",
+              "ㄸ",
+              "ㄹ",
+              "ㅁ",
+              "ㅂ",
+              "ㅃ",
+              "ㅅ",
+              "ㅆ",
+              "ㅇ",
+              "ㅈ",
+              "ㅉ",
+              "ㅊ",
+              "ㅋ",
+              "ㅌ",
+              "ㅍ",
+              "ㅎ",
+            ];
+            const s = [
+              "ㅏ",
+              "ㅐ",
+              "ㅑ",
+              "ㅒ",
+              "ㅓ",
+              "ㅔ",
+              "ㅕ",
+              "ㅖ",
+              "ㅗ",
+              "ㅘ",
+              "ㅙ",
+              "ㅚ",
+              "ㅛ",
+              "ㅜ",
+              "ㅝ",
+              "ㅞ",
+              "ㅟ",
+              "ㅠ",
+              "ㅡ",
+              "ㅢ",
+              "ㅣ",
+            ];
+            const t = [
+              "",
+              "ㄱ",
+              "ㄲ",
+              "ㄳ",
+              "ㄴ",
+              "ㄵ",
+              "ㄶ",
+              "ㄷ",
+              "ㄹ",
+              "ㄺ",
+              "ㄻ",
+              "ㄼ",
+              "ㄽ",
+              "ㄾ",
+              "ㄿ",
+              "ㅀ",
+              "ㅁ",
+              "ㅂ",
+              "ㅄ",
+              "ㅅ",
+              "ㅆ",
+              "ㅇ",
+              "ㅈ",
+              "ㅊ",
+              "ㅋ",
+              "ㅌ",
+              "ㅍ",
+              "ㅎ",
+            ];
+
+            const ga = 44032;
+            let uni = kor.charCodeAt(0);
+
+            uni = uni - ga;
+
+            let fn = parseInt(uni / 588);
+            let sn = parseInt((uni - fn * 588) / 28);
+            let tn = parseInt(uni % 28);
+            if (f[fn] === undefined) {
+              return null;
+            } else return f[fn];
+          }
 
           //정답 값에 따라 박스 생성 함수
           const create_game_input = (answer) => {
@@ -289,11 +411,11 @@
               let $input_id = document.querySelector(`#${input_id}`);
               if (i == 0) {
                 for (let j = 0; j < answer.length; j++) {
-                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" onkeydown ='onKeyDownMoveEvent(event)'/>`;
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" onkeyup ='onKeyDownMoveEvent(event)'/>`;
                 }
               } else {
                 for (let j = 0; j < answer.length; j++) {
-                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" disabled onkeydown ='onKeyDownMoveEvent(event)'/>`;
+                  $input_id.innerHTML += `<input type="text" class="game_input" maxlength="1" disabled onkeyup ='onKeyDownMoveEvent(event)'/>`;
                 }
               }
             }
@@ -361,14 +483,15 @@
               user_input[i].style.backgroundColor = "#94A3B8";
               user_input[i].style.color = "white";
             });
-            answer_count -= 1;
             let user_id = localStorage.getItem("userID");
+
+            //성공 실패 판별
             if (green.length == answer.length) {
               success(user_id);
               return;
             }
 
-            if (answer_count == 0) {
+            if (select === "input_wrap_5") {
               fail(user_id);
               return;
             }
@@ -379,7 +502,6 @@
           game_inputs.addEventListener("keypress", (e) => {
             if (e.key == "Enter") {
               check_answer(e.target.parentNode.id);
-              console.log(answer_count);
             }
           });
         </script>
