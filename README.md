@@ -12,8 +12,8 @@
 > 
 
 ## 게임 화면
+https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbcQuer%2FbtryqYIYw3x%2FtinESx1m9VxU6YjAAJ9be0%2Fimg.png
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ec029eb-ada1-4b24-8776-08950857a253/Untitled.png)
 
 ## 핵심기능
 
