@@ -12,7 +12,7 @@
 > 
 
 ## 게임 화면
-https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbcQuer%2FbtryqYIYw3x%2FtinESx1m9VxU6YjAAJ9be0%2Fimg.png
+![image](https://user-images.githubusercontent.com/54197518/183526742-fa798160-b51c-4743-af44-3f84ca3c6bbd.png)
 
 
 ## 핵심기능
